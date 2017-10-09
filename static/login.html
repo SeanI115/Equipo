@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+        <title>Login</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
+        <link rel="icon" href="https://repo.wsu.edu/spine/1/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="styles/login.css">
+        <script src="scripts/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/TATracker.js"></script>
+        <script type="text/javascript">
+            // This is a jQuery convention to say that once all the files
+            // load, the function Smile.start() should run.
+            // This function is defined in the smiles.js
+            $(function() {
+                Tracker.start();
+            });
+        </script>
+</head>
+<body>
+        <header>
+            <!--TODO: Should be just school logo on login page-->
+            <img class="headerImg" src="images/whiteCougarHead.png">
+        </header>
+        <section class="mainbody login">
+            <!-- TODO: Login form should initially be hidden. 
+                 Clicking TA or Prof will hide the buttons and 
+                 add a request param that will be passed along 
+                 with form data -->
+            <div class="loginButtons">
+                <h1 class="iam">I am a...</h1>
+                <div class="taButtonDiv">
+                    <a class="taButton button">Potential TA</a>
+                </div>
+                <div class="professorButtonDiv">
+                    <a class="professorButton button">Professor</a>
+                </div>
+            </div>
+            <div class="loginForm">
+                <a class="errorMessage"></a>
+                <div class="emailDiv">
+                    <p class="sd">School Email:</p>
+                    <input type="text" class="emailInput input" name="email"></textarea>
+                </div>
+                <div class="passwordDiv">
+                    <p>Password:</p>
+                    <input type="text" class="passwordInput input" name="password"></textarea>
+                </div>
+                <div>
+                    <a class="loginButton button">Login</a>
+                    <a class="signupLink link">Sign Up</a>
+                </div>
+                <a class="cancelLink link" href="login.html">Cancel</a>
+            </div>
+     </section>
+</body>
+</html>
