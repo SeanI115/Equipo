@@ -3,7 +3,7 @@
 <html>
 <head>
         <title>Login</title> 
-        <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="https://repo.wsu.edu/spine/1/favicon.ico">
         <link rel="stylesheet" type="text/css" href="styles/login.css">
         <script src="scripts/jquery.min.js"></script>
@@ -27,31 +27,33 @@
                  Clicking TA or Prof will hide the buttons and 
                  add a request param that will be passed along 
                  with form data -->
-            <div class="loginButtons">
-                <h1 class="iam">I am a...</h1>
-                <div class="taButtonDiv">
-                    <a class="taButton button">Potential TA</a>
+            <div class="loginUIDiv">
+                <div class="loginButtons">
+                    <h1 class="iam">I am a...</h1>
+                    <div class="taButtonDiv">
+                        <a class="taButton button">Potential TA</a>
+                    </div>
+                    <div class="professorButtonDiv">
+                        <a class="professorButton button">Professor</a>
+                    </div>
                 </div>
-                <div class="professorButtonDiv">
-                    <a class="professorButton button">Professor</a>
+                <div class="loginForm">
+                    <a class="errorMessage"></a>
+                    <div class="emailDiv">
+                        <p class="sd">School Email:</p>
+                        <input type="text" class="emailInput input" name="email"></textarea>
+                    </div>
+                    <div class="passwordDiv">
+                        <p>Password:</p>
+                        <input type="text" class="passwordInput input" name="password"></textarea>
+                    </div>
+                    <div>
+                        <a class="loginButton button">Login</a>
+                        <a class="signupLink link">Sign Up</a>
+                    </div>
+                    <a class="cancelLink link" href="login.html">Cancel</a>
                 </div>
             </div>
-            <div class="loginForm">
-                <a class="errorMessage"></a>
-                <div class="emailDiv">
-                    <p class="sd">School Email:</p>
-                    <input type="text" class="emailInput input" name="email"></textarea>
-                </div>
-                <div class="passwordDiv">
-                    <p>Password:</p>
-                    <input type="text" class="passwordInput input" name="password"></textarea>
-                </div>
-                <div>
-                    <a class="loginButton button">Login</a>
-                    <a class="signupLink link">Sign Up</a>
-                </div>
-                <a class="cancelLink link" href="login.html">Cancel</a>
-            </div>
-     </section>
+        </section>
 </body>
 </html>

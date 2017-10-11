@@ -10,16 +10,27 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
 
 db = sqlalchemy.SQLAlchemy(app)
 
-class Smile(db.Model):
+class PotentialTAs(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    space = db.Column(db.String(128), nullable=False)
-    title = db.Column(db.String(64), nullable=False)
-    story = db.Column(db.String(2048), nullable=False)
-    happiness_level = db.Column(db.Integer, nullable=False)
-    like_count = db.Column(db.Integer, default=0, nullable=False)
-    created_at = db.Column(db.DateTime(timezone=False), default=datetime.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime(timezone=False), default=datetime.datetime.utcnow, nullable=False)
+    email = db.Column(db.String(64), nullable=False)
+    firstName = db.Column(db.String(64), nullable=False)
+    lastName = db.Column(db.String(64), nullable=False)
+    gpa = db.Column(db.Float, nullable=False)
     # TODO 1: add all of the columns for the other table attributes
+
+class TAApplications(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForApp.id
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    taIdentifier = db.Column(db.Integer, secondary_key=True, nullable=False)
+    story = db.Column(db.String(1024), nullable=False)
+    classForApp = db.Column(db.String, nullable=False)
+    gradeInClass = db.Column(db.String, nullable=False)
+
+class ClassesForApp(db.Model):
+    id = db.Column(db.String(20), primary_key=True, nullable=False)
+    subject = db.Column(db.String(10), nullable=False)
+    courseNumber = db.Column(db.Integer, nullable=False)
+    courseDescription = db.Column(db.String(1024), nullable=False)
+
 
 base_url = '/api/'
 
