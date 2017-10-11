@@ -49,6 +49,7 @@ h1{
     background-color: var(--wsuLightGrey);
     border-color: var(--wsuLightGrey);
     margin-top: 15px;
+    padding: 0px 5px;
 }
 
 .button:hover {
