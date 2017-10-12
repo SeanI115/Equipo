@@ -12,6 +12,7 @@ db = sqlalchemy.SQLAlchemy(app)
 
 class PotentialTAs(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
+    loginHash = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(64), nullable=False)
     firstName = db.Column(db.String(64), nullable=False)
     lastName = db.Column(db.String(64), nullable=False)
@@ -31,6 +32,12 @@ class ClassesForApp(db.Model):
     courseNumber = db.Column(db.Integer, nullable=False)
     courseDescription = db.Column(db.String(1024), nullable=False)
 
+class Professors(db.Model):
+    id = db.Column(db.Integer, primary_key=true, nullable=False)
+    loginHash = db.Column(db.Integer, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    firstName = db.Column(db.String(50), nullable=False)
+    lastName = db.Column(db.String(50), nullable=False)
 
 base_url = '/api/'
 
