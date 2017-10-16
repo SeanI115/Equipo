@@ -12,8 +12,10 @@ var Tracker = (function() {
         //            that your new smiles will be merged with everybody else's
         //            which can get confusing. Change this to a name that 
         //            is unlikely to be used by others. 
-        var form;
+        var loginForm;
+        var signUpForm;
         var buttons;
+        var studentSignUp;
         var isProfessor;
     
     
@@ -58,16 +60,30 @@ var Tracker = (function() {
 
         var attachStudentProfessorButtonHandler = function(e)
         {
-            form.hide();
+            loginForm.hide();
+            signUpForm.hide();
             buttons.on('click', '.taButton', function(e){
                 buttons.hide();
-                form.show();
+                loginForm.show();
                 isProfessor = false;
             });
             buttons.on('click', '.professorButton', function(e){
                 buttons.hide();
-                form.show();
+                loginForm.show();
                 isProfessor = true;
+            });
+        }
+
+        var attachSignUpButtonHandler = function(e)
+        {
+            loginForm.on('click', '.signUpLink', function(e){
+                loginForm.hide();
+                signUpForm.show();
+                if(isProfessor) studentSignUp.hide();
+                else{
+                    $('.login').css("transform","translate(-50%,-55%)")
+                    $('.login').css("-webkit-transform","translate(-50%,-55%)")
+                }
             });
         }
 
@@ -77,9 +93,12 @@ var Tracker = (function() {
          */
         var start = function() {
             buttons = $(".loginButtons");
-            form = $(".loginForm");
+            loginForm = $(".loginForm");
+            signUpForm = $(".signUpForm");
+            studentSignUp = $(".student");
     
             attachStudentProfessorButtonHandler();
+            attachSignUpButtonHandler();
         };
         
     
