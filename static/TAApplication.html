@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+		<title>Application Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="images/titleIcon.ico">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      		rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="styles/materialize.css">
+		<link rel="stylesheet" type="text/css" href="styles/TAApplication.css">
+		<script src="scripts/jquery.min.js"></script>
+		<script type ="text/javascript" src="scripts/materialize.js"></script>
+		<script type="text/javascript" src="scripts/TAApplication.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				Tracker.start();
+			})
+		</script>
+	</head>
+	<body>
+			<header>
+					<nav>
+						<div class="nav-wrapper">
+							<a href="#" class="brand-logo left">Application</a>
+						</div>
+					</nav>
+			</header>
+			<section class="mainbody application">
+				<div class="row">
+				  <form class="col s12">
+				    <div class="row">
+				      <div class="input-field col s6">
+				      	<i class="material-icons prefix">account_circle</i>
+				        <input id="first_name" type="text" class="validate">
+				        <label for="first_name">First Name</label>
+				      </div>
+				      <div class="input-field col s6">
+				        <input id="last_name" type="text" class="validate">
+				        <label for="last_name">Last Name</label>
+				      </div>
+				    </div>
+				    <div class="row">
+				      <div class="input-field col s12">
+				      	<i class="material-icons prefix">assignment</i>
+				        <input id="gpa" type="number" class="validate">
+				        <label for="gpa">GPA</label>
+				      </div>
+				    </div>
+				    
+				    <div class="row">
+				      <div class="input-field col s12">
+				      	<i class="material-icons prefix">email</i>
+				        <input id="email" type="email" class="validate">
+				        <label for="email">Email</label>
+				      </div>
+				    </div>
+				    <div class="row">
+				    	<button class="btn waves-effect waves-light red" type="submit" name="action">Submit<i class="material-icons right">send</i>
+				    	</button>
+				    </div>
+				  </form>
+				</div>
