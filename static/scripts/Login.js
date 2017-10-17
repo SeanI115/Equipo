@@ -6,7 +6,7 @@ var Tracker = (function() {
         // The backend we'll use for Part 2. For Part 3, you'll replace this 
         // with your backend.
     
-        var apiUrl = 'https://mahan-warmup.herokuapp.com';
+        var apiUrl = 'https://mahan-warmup.herokuapp.com/api/';
     
         // FINISH ME (Task 4): You can use the default smile space, but this means
         //            that your new smiles will be merged with everybody else's
@@ -65,11 +65,13 @@ var Tracker = (function() {
             buttons.on('click', '.taButton', function(e){
                 buttons.hide();
                 loginForm.show();
+                $('.errorMessage').hide();
                 isProfessor = false;
             });
             buttons.on('click', '.professorButton', function(e){
                 buttons.hide();
                 loginForm.show();
+                $('.errorMessage').hide();
                 isProfessor = true;
             });
         }
@@ -83,6 +85,20 @@ var Tracker = (function() {
                 else{
                     $('.login').css("transform","translate(-50%,-55%)")
                     $('.login').css("-webkit-transform","translate(-50%,-55%)")
+                }
+            });
+            signUpForm.on('click', '.signUpSubmitButton', function(e){
+                e.preventDefault();
+                if(isProfessor){
+                    var professor = {};
+                    professor.id = signUpForm.find('.wsuIdInput').val();
+                    professor.firstName = signUpForm.find('.firstNameInput').val();
+                    professor.lastName = signUpForm.find('.lastNameInput').val();
+                    professor.email = signUpForm.find('.emailInput').val();
+                    professor.password = signUpForm.find('.passwordInput').val();
+                }
+                else{//potentialTA
+
                 }
             });
         }
@@ -99,6 +115,7 @@ var Tracker = (function() {
     
             attachStudentProfessorButtonHandler();
             attachSignUpButtonHandler();
+            attachLoginButtonHandler();
         };
         
     

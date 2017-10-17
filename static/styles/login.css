@@ -140,3 +140,8 @@ label{
 .floatLeft{
     float: left;
 }
+
+.errorMessage{
+    font-size: 20px;
+    color: red;
+}
