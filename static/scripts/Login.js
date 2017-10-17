@@ -96,9 +96,31 @@ var Tracker = (function() {
                     professor.lastName = signUpForm.find('.lastNameInput').val();
                     professor.email = signUpForm.find('.emailInput').val();
                     professor.password = signUpForm.find('.passwordInput').val();
+                    var onSuccess=function(data){
+                        //redirect
+                    }
+                    var onFailure=function(){
+                        //print failure
+                    }
+                    makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
                 }
                 else{//potentialTA
-
+                    var TA = {};
+                    TA.id = signUpForm.find('.wsuIdInput').val();
+                    TA.firstName = signUpForm.find('.firstNameInput').val();
+                    TA.lastName = signUpForm.find('.lastNameInput').val();
+                    TA.email = signUpForm.find('.emailInput').val();
+                    TA.password = signUpForm.find('.passwordInput').val();
+                    TA.major = signUpForm.find('majorInput').val();
+                    TA.gpa = signUpForm.find('gpaInput').val();
+                    TA.gradDate = signUpForm.find('gradDateSelect').text();
+                    var onSuccess=function(data){
+                        //redirect
+                    }
+                    var onFailure=function(){
+                        //print failure
+                    }
+                    makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
                 }
             });
         }

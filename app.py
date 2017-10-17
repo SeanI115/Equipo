@@ -10,7 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
 
 db = sqlalchemy.SQLAlchemy(app)
 
-class PotentialTAs(db.Model):
+class PotentialTAs(db.Model):#Table containing basic TA information gathered at sign-up
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     loginHash = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(64), nullable=False)
@@ -34,17 +34,23 @@ def row_to_obj_potential_ta(row):
     return row
 
 class TAApplications(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForApp.id
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    taIdentifier = db.Column(db.Integer, secondary_key=True, nullable=False)
-    story = db.Column(db.String(1024), nullable=False)
-    classForApp = db.Column(db.String, nullable=False)
-    gradeInClass = db.Column(db.String, nullable=False)
+    email = db.Column(db.String(64)), nullable=False)
+    firstName = db.Column(db.String(64)), nullable=False)
+    lastName = db.Column(db.String(64)), nullable=False)
+    phone = db.Column(db.String(64)) 
+    major = db.Colum(db.String(64))
+    cum_gpa = db.Colum(db.Float)
+    expected_grad = db.Column(db.DateTime)
+    prev_TA = db.Column(db.Column.Boolean)#Previously a TA?
 
-class ClassesForApp(db.Model):
-    id = db.Column(db.String(20), primary_key=True, nullable=False)
-    subject = db.Column(db.String(10), nullable=False)
-    courseNumber = db.Column(db.Integer, nullable=False)
-    courseDescription = db.Column(db.String(1024), nullable=False)
+class TAApplications(db.Model):#Table containing course specific info gathered at apply
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    taIdentifier = db.Column(db.Integer, secondary_key=True, nullable=False)#id in PotentialTAs Table
+    course_num = db.Column(db.String, nullable=False)
+    gradeInClass = db.Column(db.String, nullable=False)
+    sem_apply = db.Column(db.String, nullable=False)
+    sem_taken = db.Column(db.String, nullable=False)
+    course_TA = db.Column(db.Boolean, nullable=False)#Previously a TA in this course?
 
 class Professors(db.Model):
     id = db.Column(db.Integer, primary_key=true, nullable=False)
@@ -60,6 +66,23 @@ class Professors(db.Model):
         self.firstName = firstName
         self.lastName = lastName
         self.loginHash = loginHash
+class ClassesForApp(db.Model):
+    id = db.Column(db.String), primary_key=True, nullable=False)
+    profIdentifier = db.Column(db.Integer, secondary_key=True, nullable=False)
+    subject = db.Column(db.String(10), nullable=False)
+    courseNumber = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(1024)), nullable=False)
+    sections = db.Column(db.Integer, nullable =False)
+
+
+
+
+
+    
+
+
+
+base_url = '/api/'
 
 
 def row_to_obj_prof(row):
