@@ -9,14 +9,9 @@
       		rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="styles/materialize.css">
 		<link rel="stylesheet" type="text/css" href="styles/TAApplication.css">
-		<script src="scripts/jquery.min.js"></script>
-		<script type ="text/javascript" src="scripts/materialize.js"></script>
+  		<script type="text/javascript" src="scripts/jquery.min.js"></script>
+		<script type="text/javascript" src="scripts/materialize.min.js"></script>
 		<script type="text/javascript" src="scripts/TAApplication.js"></script>
-		<script type="text/javascript">
-			$(function() {
-				Tracker.start();
-			})
-		</script>
 	</head>
 	<body>
 			<header>
@@ -29,17 +24,28 @@
 			<section class="mainbody application">
 				<div class="row">
 				  <form class="col s12">
-				    <div class="row">
-				      <div class="input-field col s6">
-				      	<i class="material-icons prefix">account_circle</i>
-				        <input id="first_name" type="text" class="validate">
-				        <label for="first_name">First Name</label>
-				      </div>
-				      <div class="input-field col s6">
-				        <input id="last_name" type="text" class="validate">
-				        <label for="last_name">Last Name</label>
-				      </div>
-				    </div>
+				  	<div class="input-field col s6">
+				  		<div class="row">
+					  		<select id="Course" title="" name="Course" onchange="showDiv(this)">
+					  			<option value="" disabled selected>Choose Course</option>
+					  			<option value="1">CS 121</option>
+					  			<option value="2">CS 122</option>
+					  		</select>
+					  		<label>Course Select</label>
+					  		</div>
+				  	</div>
+				  	<div class="input-field col s6" style='display:none;' id='Course time'>
+				  		<div class="row">
+				  			<select>
+					  			<option value="" disabled selected>Choose Course Time</option>
+					  			<option value="3">9 am</option>
+					  			<option value="4">10 am</option>
+					  		</select>
+					  		<label>Course Time</label>
+					  		</div>
+				  	</div>
+				  </div>
+				    
 				    <div class="row">
 				      <div class="input-field col s12">
 				      	<i class="material-icons prefix">assignment</i>
@@ -61,3 +67,6 @@
 				    </div>
 				  </form>
 				</div>
+			</section>
+		</body>
+			
