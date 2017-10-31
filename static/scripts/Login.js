@@ -6,14 +6,16 @@ var Tracker = (function() {
         // The backend we'll use for Part 2. For Part 3, you'll replace this 
         // with your backend.
     
-        var apiUrl = 'https://mahan-warmup.herokuapp.com';
+        var apiUrl = 'https://mahan-warmup.herokuapp.com/api/';
     
         // FINISH ME (Task 4): You can use the default smile space, but this means
         //            that your new smiles will be merged with everybody else's
         //            which can get confusing. Change this to a name that 
         //            is unlikely to be used by others. 
-        var form;
+        var loginForm;
+        var signUpForm;
         var buttons;
+        var studentSignUp;
         var isProfessor;
     
     
@@ -58,16 +60,68 @@ var Tracker = (function() {
 
         var attachStudentProfessorButtonHandler = function(e)
         {
-            form.hide();
+            loginForm.hide();
+            signUpForm.hide();
             buttons.on('click', '.taButton', function(e){
                 buttons.hide();
-                form.show();
+                loginForm.show();
+                $('.errorMessage').hide();
                 isProfessor = false;
             });
             buttons.on('click', '.professorButton', function(e){
                 buttons.hide();
-                form.show();
+                loginForm.show();
+                $('.errorMessage').hide();
                 isProfessor = true;
+            });
+        }
+
+        var attachSignUpButtonHandler = function(e)
+        {
+            loginForm.on('click', '.signUpLink', function(e){
+                loginForm.hide();
+                signUpForm.show();
+                if(isProfessor) studentSignUp.hide();
+                else{
+                    $('.login').css("transform","translate(-50%,-55%)")
+                    $('.login').css("-webkit-transform","translate(-50%,-55%)")
+                }
+            });
+            signUpForm.on('click', '.signUpSubmitButton', function(e){
+                e.preventDefault();
+                if(isProfessor){
+                    var professor = {};
+                    professor.id = signUpForm.find('.wsuIdInput').val();
+                    professor.firstName = signUpForm.find('.firstNameInput').val();
+                    professor.lastName = signUpForm.find('.lastNameInput').val();
+                    professor.email = signUpForm.find('.emailInput').val();
+                    professor.password = signUpForm.find('.passwordInput').val();
+                    var onSuccess=function(data){
+                        //redirect
+                    }
+                    var onFailure=function(){
+                        //print failure
+                    }
+                    makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
+                }
+                else{//potentialTA
+                    var TA = {};
+                    TA.id = signUpForm.find('.wsuIdInput').val();
+                    TA.firstName = signUpForm.find('.firstNameInput').val();
+                    TA.lastName = signUpForm.find('.lastNameInput').val();
+                    TA.email = signUpForm.find('.emailInput').val();
+                    TA.password = signUpForm.find('.passwordInput').val();
+                    TA.major = signUpForm.find('majorInput').val();
+                    TA.gpa = signUpForm.find('gpaInput').val();
+                    TA.gradDate = signUpForm.find('gradDateSelect').text();
+                    var onSuccess=function(data){
+                        //redirect
+                    }
+                    var onFailure=function(){
+                        //print failure
+                    }
+                    makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
+                }
             });
         }
 
@@ -77,9 +131,13 @@ var Tracker = (function() {
          */
         var start = function() {
             buttons = $(".loginButtons");
-            form = $(".loginForm");
+            loginForm = $(".loginForm");
+            signUpForm = $(".signUpForm");
+            studentSignUp = $(".student");
     
             attachStudentProfessorButtonHandler();
+            attachSignUpButtonHandler();
+            attachLoginButtonHandler();
         };
         
     

@@ -4,6 +4,10 @@
     --wsuLightGrey: #8d959a;
 }
 
+*:focus{
+    outline: none;
+}
+
 header {
 	display: block;
 	width: 100%;
@@ -32,6 +36,26 @@ h1{
     margin-bottom: 20px;
 }
 
+input{
+    border: none;
+    border-bottom: 2px solid var(--wsuGrey);
+    font-size: 20px;
+    width: 90%;
+}
+
+input[type=text]:focus{
+    border:none;
+    border-bottom: 3px solid black;
+}
+
+input[type=checkbox] {
+    display: inline;
+}
+
+label{
+    font-size: 20px;
+}
+
 .headerImg{
     display: block;
     height: 40px;
@@ -52,8 +76,8 @@ h1{
 }
 
 .button:hover {
-    background-color: var(--wsuLightGrey);
-    border-color: var(--wsuLightGrey);
+    background-color: var(--wsuGrey);
+    border-color: var(--wsuGrey);
 }
 
 .iam{
@@ -69,7 +93,6 @@ h1{
 .input{
     height: 50px;
     font-size: 30px;
-    border-radius: 10px;
     padding-left:5px;
     width: 500px;
 }
@@ -80,7 +103,7 @@ h1{
     font-size: 80%;
 }
 
-.signupLink{
+.signUpLink{
     margin: 10px;
 }
 
@@ -102,4 +125,23 @@ h1{
     border-radius: 20px;
     padding: 30px 50px;
     box-shadow: 5px 5px 10px black;
+}
+
+.signUpForm{
+    display: inline-block;
+    text-align: left;
+    margin-left:5%;
+}
+
+.prevTAdiv{
+    display: block;
+}
+
+.floatLeft{
+    float: left;
+}
+
+.errorMessage{
+    font-size: 20px;
+    color: red;
 }
