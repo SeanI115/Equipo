@@ -5,6 +5,7 @@
         <link rel="icon" href="images/titleIcon.ico">
         <title> Course Creation Page </title>
         <script src="scripts/jquery.min.js"></script>
+        <script type= "text/javascript" src="scripts/ProfCourseCreate.js"></script>
         <script type="text/javascript" src="scripts/Login.js"></script>
         <script type="text/javascript">
             // This is a jQuery convention to say that once all the files
@@ -18,7 +19,7 @@
 
 <body>
         <header>
-                <img class="headerImg" src="images/whiteCougarHead.png">
+                <img class="headerImg" src="images/whiteCougarHead.png" width=15%>
         </header>
         <section>
         	<form>
@@ -28,7 +29,7 @@
         		Class Description: <br /><br>
         		<textarea rows = "5" cols = "50" name= "class_description">
         		</textarea>
-        		<br>
+       			<br>
         		<br>
         		Class Day: <br >
         		<input type="radio" name="course_day" value="Monday"> Monday<br>
@@ -43,7 +44,9 @@
         		Class End Time: <input type = "time" name ="class_endTime" />
         		<br>
         		<br>
-        		<input type ="submit" >
+        		<button type ="submit" value="Submit">Submit</button>
+        		<button type="reset" value="Reset">Reset</button>
+
         	</form>
         </section>
             
