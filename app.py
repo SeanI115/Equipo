@@ -14,7 +14,8 @@ def row_to_obj_ta(row):
             "id": row.id,
             "firstName": row.firstName,
             "lastName": row.lastName,
-            "phone": row.phone,
+            "email": row.email,
+            "password": row.password,
             "major": row.major,
             "gpa": row.gpa,
             "gradDate": row.gradDate
@@ -22,20 +23,22 @@ def row_to_obj_ta(row):
     return row
 
 class TAs(db.Model):
-    id = db.Column(db.String(64), primary_key=True, nullable=False)#this is the email
+    id = db.Column(db.Integer, primary_key=True, nullable=False)#this is the email
     firstName = db.Column(db.String(64), nullable=False)
     lastName = db.Column(db.String(64), nullable=False)
-    phone = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    password = db.Column(db.String(64))
     major = db.Column(db.String(64))
     gpa = db.Column(db.Float)
     gradDate = db.Column(db.String(64))
 
 
-    def __init__(self, id, firstName, lastName, phone, major, gpa, gradDate):
+    def __init__(self, id, firstName, lastName, email, password, major, gpa, gradDate):
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
-        self.phone = phone
+        self.email = email
+        self.password = password
         self.major = major
         self.gpa = gpa
         self.gradDate = gradDate
@@ -44,7 +47,7 @@ class TAs(db.Model):
 base_url = '/api/'
 
 
-@app.route(base_url+'login',methods=["POST"])
+@app.route(base_url+'createTA',methods=["POST"])
 def createTA():
     json = request.get_json()
     ta = TAs(**request.json)
@@ -53,7 +56,11 @@ def createTA():
     db.session.refresh(ta)
     return jsonify({"status":1,"TA":row_to_obj_ta(ta)}), 200
 
-base_url = '/api/'
+
+@app.route(base_url+'TA/<int:id>', methods=["GET"])
+def show(id):
+     row = TAs.query.filter_by(id=id).first()
+     return jsonify({"status": 1, "TA": row_to_obj_ta(row)}), 200
 
 
 def main():

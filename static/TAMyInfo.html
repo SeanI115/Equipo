@@ -3,7 +3,7 @@
         <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="images/titleIcon.ico">
-                <title> Course Creation Page </title>
+                <title> TA: My Information </title>
                 <script src="scripts/jquery.min.js"></script>
                 <script type="text/javascript" src="scripts/TAMyInfo.js"></script>
                 <script type="text/javascript">
@@ -24,13 +24,14 @@
 
                 </section>
                 <section>
-                        <form class="mutableTAData">
-                                <input type= "text" class="majorInput" name = "major" placeholder="Major">
-                                <input type= "text" class="gpaInput" name = "gpa" placeholder="GPA">
-                                <input type= "text" class="phoneInput" name = "phone" placeholder="Phone #">
-
-
-
+                        <label> Please Make Any Desired Edits and Submit: </label>
+                        <form class="newTAData" method="post" action="TAMyInfo.html">
+                                <input type= "text" class="majorInput inputBox" name = "major" placeholder="Major">
+                                <input type= "text" class="gpaInput inputbox" name = "gpa" placeholder="GPA">
+                                <input type= "text" class="phoneInput inputBox" name = "phone" placeholder="Phone #">
+                                <input type= "text" class="gradDateInput inputBox" name = "gradDate" placeholder="Graduation Date">
+                                <input type="submit" class="inputSubmit myButton" value="Submit">
+                                <a class="inputCancel myButton" href="TASplash.html">Cancel</a>
                         </form>
                 </section>
 

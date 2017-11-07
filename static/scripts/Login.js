@@ -1,28 +1,28 @@
 
 var Tracker = (function() {
-    
+
         // PRIVATE VARIABLES
-            
-        // The backend we'll use for Part 2. For Part 3, you'll replace this 
+
+        // The backend we'll use for Part 2. For Part 3, you'll replace this
         // with your backend.
-    
-        var apiUrl = 'https://mahan-warmup.herokuapp.com/api/';
-    
+
+        var apiUrl = 'http://127.0.0.1:5000/api/';
+
         // FINISH ME (Task 4): You can use the default smile space, but this means
         //            that your new smiles will be merged with everybody else's
-        //            which can get confusing. Change this to a name that 
-        //            is unlikely to be used by others. 
+        //            which can get confusing. Change this to a name that
+        //            is unlikely to be used by others.
         var loginForm;
         var signUpForm;
         var buttons;
         var studentSignUp;
         var isProfessor;
-    
-    
+
+
         // PRIVATE METHODS
-          
+
        /**
-        * HTTP GET request 
+        * HTTP GET request
         * @param  {string}   url       URL path, e.g. "/api/smiles"
         * @param  {function} onSuccess   callback method to execute upon request success (200 status)
         * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
@@ -37,7 +37,7 @@ var Tracker = (function() {
                error: onFailure
            });
        };
-    
+
         /**
          * HTTP POST request
          * @param  {string}   url       URL path, e.g. "/api/smiles"
@@ -97,7 +97,7 @@ var Tracker = (function() {
                     professor.email = signUpForm.find('.emailInput').val();
                     professor.password = signUpForm.find('.passwordInput').val();
                     var onSuccess=function(data){
-                        //redirect
+
                     }
                     var onFailure=function(){
                         //print failure
@@ -105,22 +105,26 @@ var Tracker = (function() {
                     makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
                 }
                 else{//potentialTA
-                    var TA = {};
-                    TA.id = signUpForm.find('.wsuIdInput').val();
-                    TA.firstName = signUpForm.find('.firstNameInput').val();
-                    TA.lastName = signUpForm.find('.lastNameInput').val();
-                    TA.email = signUpForm.find('.emailInput').val();
-                    TA.password = signUpForm.find('.passwordInput').val();
-                    TA.major = signUpForm.find('majorInput').val();
-                    TA.gpa = signUpForm.find('gpaInput').val();
-                    TA.gradDate = signUpForm.find('gradDateSelect').text();
+                    var ta = {};
+                    ta.id = signUpForm.find('.wsuIdInput').val();
+                    ta.firstName = signUpForm.find('.firstNameInput').val();
+                    ta.lastName = signUpForm.find('.lastNameInput').val();
+                    ta.email = signUpForm.find('.emailInput').val();
+                    ta.password = signUpForm.find('.passwordInput').val();
+                    ta.major = signUpForm.find('.majorInput').val();
+                    ta.gpa = signUpForm.find('.gpaInput').val();
+                    ta.gradDate = signUpForm.find('.gradDateSelect').val();
                     var onSuccess=function(data){
-                        //redirect
+
+
+
                     }
                     var onFailure=function(){
-                        //print failure
+
+                        console.error('create smile failed');
+
                     }
-                    makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
+                    makePostRequest(apiUrl+'createTA',ta,onSuccess,onFailure);
                 }
             });
         }
@@ -134,18 +138,17 @@ var Tracker = (function() {
             loginForm = $(".loginForm");
             signUpForm = $(".signUpForm");
             studentSignUp = $(".student");
-    
+
             attachStudentProfessorButtonHandler();
             attachSignUpButtonHandler();
-            attachLoginButtonHandler();
+            //attachLoginButtonHandler();
         };
-        
-    
+
+
         // PUBLIC METHODS
         // any private methods returned in the hash are accessible via Smile.key_name, e.g. Smile.start()
         return {
             start: start
         };
-        
+
     })();
-    
