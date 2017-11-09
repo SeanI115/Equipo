@@ -6,7 +6,7 @@ var Tracker = (function() {
         // The backend we'll use for Part 2. For Part 3, you'll replace this
         // with your backend.
 
-        var apiUrl = 'http://127.0.0.1:5000/api/';
+        var apiUrl = 'http://127.0.0.1:5000';
 
         // FINISH ME (Task 4): You can use the default smile space, but this means
         //            that your new smiles will be merged with everybody else's
@@ -124,7 +124,7 @@ var Tracker = (function() {
                         console.error('create smile failed');
 
                     }
-                    makePostRequest(apiUrl+'createTA',ta,onSuccess,onFailure);
+                    makePostRequest('/api/createTA',ta,onSuccess,onFailure);
                 }
             });
         }
