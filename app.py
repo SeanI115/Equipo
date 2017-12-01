@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-from dataAccess import db, Professors, TAs
+from dataAccess import db, Professors, TAs, ClassesForApp, Applications, Sessions
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dataAccessTest.db'
 base_url = '/api/'
 ######### START OF WORKING CODE
@@ -29,9 +29,17 @@ def createProf():
 def getAllProfs():
     return Professors.getAll()
 
+@app.route(base_url+'ProfByID',methods=["GET"])
+def ProfByID():
+    return Professors.getProfByID(request)
+
 @app.route(base_url+'loginProf',methods=['POST'])
 def loginProf():
     Professors.attemptLogin(request)
+
+@app.route(base_url+'deleteProf',methods=["DELETE"])
+def deleteProf():
+    Professors.deleteProf(request)
 
 @app.route(base_url+'createTA',methods=["POST"])
 def createTA():
@@ -44,6 +52,58 @@ def getAllTAs():
 @app.route(base_url+'loginTA',methods=['POST'])
 def loginTA():
     return TAs.attemptLogin(request)
+
+@app.route(base_url+'TAByID',methods=["GET"])
+def getTAByID():
+    return TAs.getByID(request)
+
+@app.route(base_url+'createClass',methods=["POST"])
+def createClass():
+    return create(ClassesForApp, request)
+
+@app.route(base_url+'Classes',methods=["GET"])
+def getAllClasses():
+    return ClassesForApp.getAll(request)
+
+@app.route(base_url+'ClassesByProfID',methods=["GET"])
+def getClassesByProfID():
+    return ClassesForApp.getClassesByProfId(request)
+
+@app.route(base_url+'ClassPrefixes',methods=["GET"])
+def getClassPrefixes():
+    return ClassesForApp.getClassPrefixes(request)
+
+@app.route(base_url+'ClassesByPrefix',methods=["GET"])
+def getClassesByPrefix():
+    return ClassesForApp.getClassesByPrefix(request)
+
+@app.route(base_url+'DeleteClassByID',methods=["DELETE"])
+def deleteClassByID():
+    ClassesForApp.deleteClassByID(request)
+
+@app.route(base_url+'createApplication',methods=["GET"])
+def createApplication():
+    return create(Applications, request)
+
+@app.route(base_url+'Applications',methods=["GET"])
+def getAllApplications():
+    return Applications.getAll()
+
+@app.route(base_url+'AppsByTAID',methods=["GET"])
+def getAppsByTAID():
+    return Applications.getAppsByTAID(request)
+
+@app.route(base_url+'AppsForClass',methods=["GET"])
+def getAppsByClass():
+    return Applications.getAppsForClass(request)
+
+@app.route(base_url+'DeleteApp',methods=["DELETE"])
+def deleteAppByID():
+    return Applications.deleteAppByID(request)
+
+@app.route(base_url+'Sessions',methods=["GET"])
+def getAllSessions():
+    return Sessions.getAll()
 
 def main():
     db.create_all() # creates the tables you've provided
