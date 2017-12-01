@@ -67,12 +67,26 @@ var Tracker = (function() {
                 loginForm.show();
                 $('.errorMessage').hide();
                 isProfessor = false;
+
+                var ta = {};
+                ta.email = loginForm.find('.emailInput').val();
+                ta.pasword = loginForm.find('.passwordInput').val();
+
+
+                makePostRequest('loginTA',ta,onSuccess,onFailure);
+
             });
             buttons.on('click', '.professorButton', function(e){
                 buttons.hide();
                 loginForm.show();
                 $('.errorMessage').hide();
                 isProfessor = true;
+
+                var professor = {};
+                professor.email = loginForm.find('.emailInput').val();
+                professor.password = loginForm.find('.passwordInput').val();
+
+                makePostRequest('loginProf',professor,onSuccess,onFailure);
             });
         }
 
@@ -102,7 +116,9 @@ var Tracker = (function() {
                     var onFailure=function(){
                         //print failure
                     }
-                    makePostRequest(apiUrl+'createProf',professor,onSuccess,onFailure);
+                    makePostRequest('createProf',professor,onSuccess,onFailure);
+
+                    window.location.href = "ProfSplash.html"
                 }
                 else{//potentialTA
                     var ta = {};
@@ -125,6 +141,8 @@ var Tracker = (function() {
 
                     }
                     makePostRequest('/api/createTA',ta,onSuccess,onFailure);
+
+                    window.location.href = "TASplash.html"
                 }
             });
         }

@@ -1,9 +1,10 @@
 <html>
-        
+
         <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="images/titleIcon.ico">
-                <title> Course Creation Page </title>
+                <title> Professor Home Page </title>
+                <link rel="stylesheet" type="text/css" href="styles/ProfSplash.css">
                 <script src="scripts/jquery.min.js"></script>
                 <script type="text/javascript" src="scripts/Login.js"></script>
                 <script type="text/javascript">
@@ -15,18 +16,25 @@
                     });
                 </script>
         </head>
-        
+
         <body>
                 <header>
                         <img class="headerImg" src="images/whiteCougarHead.png">
                 </header>
-                <section>
-        
+                <section class="mainbody splash">
+                    <div class="ProfOptions">
+                        <div class="optionButtons">
+                            <div class="infobutton">
+                                <a class="editinfoButton button" onclick="window.location.href='ProfCourseCreate.html'">Edit Courses</a>
+                            </div>
+                            <div class="manageTA">
+                                <a class="manageTAbutton button" onclick="window.location.href='ProfTAPicker.html'">Manage TA's</a>
+                            </div>
+
                 </section>
-                    
-        
-                
-        
+
+
+
+
         </body>
         
-        </html>
