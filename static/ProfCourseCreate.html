@@ -3,11 +3,15 @@
 <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="images/titleIcon.ico">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="styles/ProfCourseCreate.css">
         <title> Course Creation Page </title>
         <script src="scripts/jquery.min.js"></script>
         <script type= "text/javascript" src="scripts/ProfCourseCreate.js"></script>
         <script type="text/javascript" src="scripts/Login.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
         <script type="text/javascript">
             // This is a jQuery convention to say that once all the files
             // load, the function Smile.start() should run.
@@ -23,10 +27,8 @@
                 <img class="headerImg" src="images/whiteCougarHead.png" width=15%>
         </header>
         <section>
-        	<form>
-        		Class Name: <br><input type = "text" name = "class_name"/>
-        		<br>
-        		<br>
+        	<!-- <form>
+        		
                 
         		Class Description: <br />
         		<textarea rows = "5" cols = "50" name= "class_description">
@@ -49,7 +51,51 @@
         		<button type ="submit" value="Submit">Submit</button>
         		<button type="reset" value="Reset">Reset</button>
 
-        	</form>
+        	</form> -->
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="class_name">
+                            <label for="class_name">Class Name:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="class_description" class="materialize-textarea" length="200"></textarea>
+                            <label for="class_description">Provide some info about your class!</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select multiple>
+                                <option value=" " disabled selected>Choose Class Days</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                            </select>
+                            <label>Class Days: </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text" class="timepicker" id="class_startTime">
+                            <label for="class_startTime">Class Start Time:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input type="text" class="timepicker" id="class_endTime">
+                            <label for="class_endTime">Class End Time:</label>
+                        </div>
+
+                    </div>
+                <button class="btn waves-effect waves-red" type="submit" name="action">Submit<i class="material-icons right">send</i>
+                </button>
+                </form>
+            </div>
+
+
         </section>
             
 
