@@ -17,8 +17,11 @@ var Tracker = (function() {
         var buttons;
         var studentSignUp;
         var isProfessor;
-    
-    
+        
+
+         $(document).ready(function() {
+    $('select').material_select();
+  });
         // PRIVATE METHODS
           
        /**
@@ -149,3 +152,4 @@ var Tracker = (function() {
         
     })();
     
+

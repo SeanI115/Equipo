@@ -4,11 +4,10 @@
 <head>
         <title>Login</title> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
         <link type="text/css" rel="stylesheet">
-=======
+
         <link rel="icon" href="images/titleIcon.ico">
->>>>>>> 87c24bbfcf9edaaf8aea49a1ece7ed7f4f1b669f
+
         <link rel="stylesheet" type="text/css" href="styles/Login.css">
         <script src="scripts/jquery.min.js"></script>
         <script type="text/javascript" src="scripts/Login.js"></script>
@@ -20,6 +19,9 @@
                 Tracker.start();
             });
         </script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+ 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
 </head>
 <body>
         <header>
@@ -58,34 +60,37 @@
                     <a class="cancelLink link" href="login.html">Cancel</a>
                 </div>
                 <form class="signUpForm">
-                        <input type="text" class="firstNameInput" name="firstName" placeholder="First Name">
-                        <input type="text" class="lastNameInput" name="lastName" placeholder="Last Name">
+                        <!-- <div class="input-field col s6">
+                       		 <input type="text" class="lastNameInput" name="lastName" placeholder="Last Name">
+                       	</div> -->
                         <input type="text" class="wsuIdInput" name="wsuId" placeholder="WSU ID #">
                         <div class="student">
                             <input type="text" class="majorInput" name="major" placeholder="Major">
                             <input type="text" class="gpaInput" name="gpa" placeholder="GPA">
-                            <label for="gradDate">Expected Graduation:</label>
-                            <select id="gradDate" name="gradDate" class=gradDateSelect>
-                                    <option value="Fall17">Fall 2017</option>
-                                    <option value="Spring17">Spring 2017</option>
-                                    <option value="Summer17">Summer 2017</option>
-                                    <option value="Fall18">Fall 2018</option>
-                                    <option value="Spring18">Spring 2018</option>
-                                    <option value="Summer18">Summer 2018</option>
-                                    <option value="Fall19">Fall 2019</option>
-                                    <option value="Spring19">Spring 2019</option>
-                                    <option value="Summer19">Summer 2019</option>
-                                    <option value="Fall20">Fall 2020</option>
-                                    <option value="Spring20">Spring 2020</option>
-                                    <option value="Summer20">Summer 2020</option>
-                                    <option value="Fall21">Fall 2021</option>
-                                    <option value="Spring21">Spring 2021</option>
-                                    <option value="Summer21">Summer 2021</option>
-                            </select>
-                            <div class="prevTAdiv">
-                                <label for="prevTA">Check here if you've previously been a TA:</label>
-                                <input type="checkbox" id="prevTA" name="prevTA" class="floatLeft">
-                            </div>
+                            <label for="gradDate">Expected Grad Date:</label>
+                            <div class="input-feild col s12" id="gradDate">
+	                           	 <select>
+	                                    <option value="Fall17">Fall 2017</option>
+	                                    <option value="Spring17">Spring 2017</option>
+	                                    <option value="Summer17">Summer 2017</option>
+	                                    <option value="Fall18">Fall 2018</option>
+	                                    <option value="Spring18">Spring 2018</option>
+	                                    <option value="Summer18">Summer 2018</option>
+	                                    <option value="Fall19">Fall 2019</option>
+	                                    <option value="Spring19">Spring 2019</option>
+	                                    <option value="Summer19">Summer 2019</option>
+	                                    <option value="Fall20">Fall 2020</option>
+	                                    <option value="Spring20">Spring 2020</option>
+	                                    <option value="Summer20">Summer 2020</option>
+	                                    <option value="Fall21">Fall 2021</option>
+	                                    <option value="Spring21">Spring 2021</option>
+	                                    <option value="Summer21">Summer 2021</option>
+	                            </select>
+	                        </div>
+                            <p>
+                            	<input type="checkbox" id="prevTaDiv" />
+                            	<label for="prevTaDiv">Previous TA?</label>
+                            <p>
                         </div>
                         <input type="text" name="email" class="emailInput" placeholder="WSU Email">
                         <input type="password" name="password" class="passwordInput" placeholder="Password">

@@ -69,7 +69,7 @@ label{
 	border-radius: 5px;
     border-style:solid;
     display: inline-block;
-    background-color: var(--wsuLightGrey);
+    
     border-color: var(--wsuLightGrey);
     margin-top: 15px;
     padding: 0px 5px;
@@ -85,11 +85,23 @@ label{
     font-size: 200%;
 }
 
+
 .loginForm{
     font-size: 40px;
     display: inline-block;
+    width: 320px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border-top: 5px solid #ff656c;
+    margin: 0 auto;
+    position:relative;
+    cursor:default;
 }
 
+.loginUIDiv{
+    display:block;
+}
 .input{
     height: 50px;
     font-size: 30px;
@@ -98,9 +110,9 @@ label{
 }
 
 .link{
-    color: blue;
-    text-decoration: underline;
+    color: grey;
     font-size: 80%;
+    cursor:default;
 }
 
 .signUpLink{
@@ -112,7 +124,7 @@ label{
 }
 
 .login{
-    position: relative;
+    position: auto;
     display: inline-block;
     -webkit-transform: translate(-50%,-60%);
     transform: translate(-50%,-60%);
@@ -125,17 +137,20 @@ label{
     border-radius: 20px;
     padding: 30px 50px;
     box-shadow: 5px 5px 10px black;
+    cursor: default;
 }
+    
 
 .signUpForm{
-    display: inline-block;
+    display: block;
     text-align: left;
-    margin-left:5%;
+    position: relative;
+    background-color:white;
+    width: auto;
+    height: auto;
 }
 
-.prevTAdiv{
-    display: block;
-}
+
 
 .floatLeft{
     float: left;
