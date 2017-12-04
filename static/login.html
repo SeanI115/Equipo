@@ -59,38 +59,58 @@
                     </div>
                     <a class="cancelLink link" href="login.html">Cancel</a>
                 </div>
-                <form class="signUpForm">
+                <form class="signUpForm col s12">
                         <!-- <div class="input-field col s6">
                        		 <input type="text" class="lastNameInput" name="lastName" placeholder="Last Name">
                        	</div> -->
-                        <input type="text" class="wsuIdInput" name="wsuId" placeholder="WSU ID #">
-                        <div class="student">
-                            <input type="text" class="majorInput" name="major" placeholder="Major">
-                            <input type="text" class="gpaInput" name="gpa" placeholder="GPA">
-                            <label for="gradDate">Expected Grad Date:</label>
-                            <div class="input-feild col s12" id="gradDate">
-	                           	 <select>
-	                                    <option value="Fall17">Fall 2017</option>
-	                                    <option value="Spring17">Spring 2017</option>
-	                                    <option value="Summer17">Summer 2017</option>
-	                                    <option value="Fall18">Fall 2018</option>
-	                                    <option value="Spring18">Spring 2018</option>
-	                                    <option value="Summer18">Summer 2018</option>
-	                                    <option value="Fall19">Fall 2019</option>
-	                                    <option value="Spring19">Spring 2019</option>
-	                                    <option value="Summer19">Summer 2019</option>
-	                                    <option value="Fall20">Fall 2020</option>
-	                                    <option value="Spring20">Spring 2020</option>
-	                                    <option value="Summer20">Summer 2020</option>
-	                                    <option value="Fall21">Fall 2021</option>
-	                                    <option value="Spring21">Spring 2021</option>
-	                                    <option value="Summer21">Summer 2021</option>
-	                            </select>
-	                        </div>
+                       	<div class="row">
+                       		<div class="input-field col s12">
+                       	 		<input type="text" class="wsuIdInput" name="wsuId" placeholder="WSU ID #">
+                       		</div>
+                       	</div>
+                       	<div class="row">
+                       		<div class="input-field col s12">
+		                        <div class="student">
+		                        	<div class="row">
+		                        		<div class="input-field col s12">
+		                            		<input type="text" class="majorInput" name="major" placeholder="Major">
+		                            	</div>
+		                            </div>
+		                            <div class="row">
+		                            	<div class="input-field col s6">
+		                            		<input type="text" class="gpaInput" name="gpa" placeholder="GPA">
+		                            	</div>
+		                            </div>
+		                            <div class="row">
+		                           			 <div class="input-field col s12" id="gradDate">
+				                           			 <select>
+				                                   	 <option value="Fall17">Fall 2017</option>
+				                                   	 <option value="Spring17">Spring 2017</option>
+				                                   	 <option value="Summer17">Summer 2017</option>
+				                                    <option value="Fall18">Fall 2018</option>
+				                                    <option value="Spring18">Spring 2018</option>
+				                                    <option value="Summer18">Summer 2018</option>
+				                                    <option value="Fall19">Fall 2019</option>
+				                                    <option value="Spring19">Spring 2019</option>
+				                                    <option value="Summer19">Summer 2019</option>
+				                                    <option value="Fall20">Fall 2020</option>
+				                                    <option value="Spring20">Spring 2020</option>
+				                                    <option value="Summer20">Summer 2020</option>
+				                                    <option value="Fall21">Fall 2021</option>
+				                                    <option value="Spring21">Spring 2021</option>
+				                                    <option value="Summer21">Summer 2021</option>
+						                            </select>
+						                            <label for="gradDate">Expected Grad Date:</label>
+						                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="row">
                             <p>
                             	<input type="checkbox" id="prevTaDiv" />
                             	<label for="prevTaDiv">Previous TA?</label>
                             <p>
+                            </div>
                         </div>
                         <input type="text" name="email" class="emailInput" placeholder="WSU Email">
                         <input type="password" name="password" class="passwordInput" placeholder="Password">
