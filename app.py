@@ -18,7 +18,7 @@ def create(classForCreate, request):
     db.session.add(newThing)
     db.session.commit()
     db.session.refresh(newThing)
-    return jsonify({"status":1,'created':newThing.row_to_obj_secure()}), 200
+    return jsonify({"status":1,'created':newThing.row_to_obj()}), 200
 
 @app.route(base_url+'createProf',methods=["POST"])
 def createProf():
@@ -35,11 +35,11 @@ def ProfByID():
 
 @app.route(base_url+'loginProf',methods=['POST'])
 def loginProf():
-    Professors.attemptLogin(request)
+    return Professors.attemptLogin(request)
 
 @app.route(base_url+'deleteProf',methods=["DELETE"])
 def deleteProf():
-    Professors.deleteProf(request)
+    return Professors.deleteProf(request)
 
 @app.route(base_url+'createTA',methods=["POST"])
 def createTA():
@@ -63,7 +63,7 @@ def createClass():
 
 @app.route(base_url+'Classes',methods=["GET"])
 def getAllClasses():
-    return ClassesForApp.getAll(request)
+    return ClassesForApp.getAll()
 
 @app.route(base_url+'ClassesByProfID',methods=["GET"])
 def getClassesByProfID():
@@ -81,7 +81,7 @@ def getClassesByPrefix():
 def deleteClassByID():
     ClassesForApp.deleteClassByID(request)
 
-@app.route(base_url+'createApplication',methods=["GET"])
+@app.route(base_url+'createApplication',methods=["POST"])
 def createApplication():
     return create(Applications, request)
 

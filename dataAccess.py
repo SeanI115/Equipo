@@ -1,5 +1,6 @@
 from __main__ import app
 from flask import Flask, jsonify, request
+from sqlalchemy import and_
 import flask_sqlalchemy as sqlalchemy
 import bcrypt, datetime, sys, uuid
 db = sqlalchemy.SQLAlchemy(app)
@@ -27,16 +28,6 @@ class Professors(db.Model):
     def row_to_obj(self):
         row = {
             "id" : self.id,
-            "loginHash" : self.loginHash,
-            "email" : self.email,
-            "firstName" : self.firstName,
-            "lastName" : self.lastName
-        }
-        return row
-
-    def row_to_obj_secure(self):
-        row = {
-            "id" : self.id,
             "email" : self.email,
             "firstName" : self.firstName,
             "lastName" : self.lastName
@@ -44,11 +35,10 @@ class Professors(db.Model):
         return row
 
     def getAll():
-        json = request.get_json()
         query = Professors.query.all()
         result = []
         for row in query:
-            result.append(row.row_to_obj_secure())
+            result.append(row.row_to_obj())
         print(result, file=sys.stderr)
         return jsonify({"status": 1, "professors": result}), 200
 
@@ -56,7 +46,7 @@ class Professors(db.Model):
         validated = Sessions.validateSession()
         if(validated):
             prof = Professors.query.filter_by(id=request.args.get('requestedID'))
-            return jsonify({'status':1,'professor':prof.row_to_obj_secure()}), 200
+            return jsonify({'status':1,'professor':prof.row_to_obj()}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
@@ -70,26 +60,28 @@ class Professors(db.Model):
             print('user not found', file=sys.stderr)
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
         hashedInput = str(bcrypt.hashpw(password.encode('utf8'), prof.salt))
+        print(hashedInput)
         if(prof.loginHash == hashedInput):
             Sessions.createSession(prof.id, "professor")
-            return jsonify({"status":1,"professor":prof.row_to_obj_secure()}), 200
+            return jsonify({"status":1,"professor":prof.row_to_obj()}), 200
         else:
+            print("I AM HERE")
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
 
     def deleteProf(request):
         json = request.get_json()
-        validated = Sessions.validateSession()
+        validated = Sessions.validateSession(request)
         requestedID = json['requestedID']
         prof = Professors.query.filter_by(id=requestedID).first()
-        classes = Classes.query.filter_by(professorID=prof.id).all()
+        classes = ClassesForApp.query.filter_by(professorID=prof.id).all()
         for row in classes:
             Applications.query.filter_by(classID=row.id).delete()
             db.session.commit()
-        Classes.query.filter_by(professorID=prof.id).delete()
+        ClassesForApp.query.filter_by(professorID=prof.id).delete()
         db.session.commit()
         Professors.query.filter_by(id=requestedID).delete()
         db.session.commit()
-        return jsonify({"status:1"}),200
+        return jsonify({"status:1","deleted":requestedID}),200
 
 class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForApp.id
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -133,7 +125,7 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         print(hashedInput, file=sys.stderr)
         if(ta.loginHash == hashedInput):
             Sessions.createSession(ta.id, "ta")
-            return jsonify({"status":1,"professor":ta.row_to_obj_secure()}), 200
+            return jsonify({"status":1,"ta":ta.row_to_obj()}), 200
         else:
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
 
@@ -152,22 +144,6 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
 
     def row_to_obj(self):
         row = {
-            'id':self.id,
-            'loginHash':self.loginHash,
-            'email':self.email,
-            'firstName':self.firstName,
-            'lastName':self.lastName,
-            'phone':self.phone,
-            'major':self.major,
-            'cum_gpa':self.cum_gpa,
-            'expected_grad':self.expected_grad,
-            'prev_TA':self.prev_TA,
-            'salt':self.salt
-        }
-        return row
-
-    def row_to_obj_secure(self):
-        row = {
         'id':self.id,
         'email':self.email,
         'firstName':self.firstName,
@@ -181,17 +157,13 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         return row
 
     def getAll():
-        validated = Sessions.validateSession()
-        if validated:
-            query = TAs.query.all()
-            result = []
-            for row in query:
-                result.append(row.row_to_obj_secure())
-            print(result, file=sys.stderr)
-            return jsonify({"status": 1, "tas": result}), 200
-        else:
-            return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
-        
+        query = TAs.query.all()
+        result = []
+        for row in query:
+            result.append(row.row_to_obj())
+        print(result, file=sys.stderr)
+        return jsonify({"status": 1, "tas": result}), 200
+
     def getByID(request):
         role = request.args.get('role', None)
         userId = request.args.get('userId', None)
@@ -212,7 +184,7 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         if toReturn is None:
             return jsonify({"status":-1,"errors":"TA not found"}), 401
         else:
-            return jsonify({"status":1,"ta":toReturn.row_to_obj_secure()}), 200
+            return jsonify({"status":1,"ta":toReturn.row_to_obj()}), 200
 
 class ClassesForApp(db.Model):
     id = db.Column(db.String, primary_key=True, nullable=False)
@@ -223,7 +195,7 @@ class ClassesForApp(db.Model):
     year = db.Column(db.String, nullable=False)
     numTAsNeeded = db.Column(db.Integer, nullable=False)
     numTAsAdded = db.Column(db.Integer, nullable=False, default=0)
-    TAsAddedList = db.Column(db.String, nullable=False, default='0')
+    TAsAddedList = db.Column(db.String, nullable=False, default='')
     labSection = db.Column(db.String, nullable=True)
     dayTime = db.Column(db.String, nullable=True)
 
@@ -237,8 +209,9 @@ class ClassesForApp(db.Model):
         self.year = json['year']
         self.numTAsNeeded=json['numTAsNeeded']
         self.numTAsAdded=json['numTAsAdded']
-        self.labSection=request.args.get('labSection', None)
-        self.dayTime=request.args.get('dayTime', None)
+        self.TAsAddedList=''
+        self.labSection=json['labSection']
+        self.dayTime=json['dayTime']
 
     def row_to_obj(self):
         prof = Professors.query.filter_by(id=self.professorID).first()
@@ -302,6 +275,29 @@ class ClassesForApp(db.Model):
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
+    def addTAToClass(request):
+        validated = Sessions.validateSession(request)
+        if validated:
+            classToAddID = request.args.get('classToAddID', None)
+            classToAdd = ClassesForApp.query.filter_by(id=classToAddID).first()
+            if classToAdd:
+                studentToAdd = request.args.get('studentToAddID', None)
+                student = TAs.query.filter_by(id=studentToAdd).first()
+                if student:
+                    classToAdd.TAsAddedList += ','
+                    classToAdd.TAsAddedList += student.id
+                    classToAdd.numTAsAdded+=1
+                    db.session.add(classToAdd)
+                    db.session.commit()
+                    db.session.refresh(newThing)
+                    return jsonify({"status":1,"class":classToAdd.row_to_obj()}), 401
+                else:
+                    return jsonify({"status":-1,"errors":"student not found"}), 404
+            else:
+                return jsonify({"status":-1,"errors":"class not found"}), 401
+        else:
+            return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
+
     def deleteClassByID(request):
         json = request.get_json
         requestedID = json['requestedID']
@@ -324,16 +320,17 @@ class Applications(db.Model):
 
     def __init__(self, request):
         json = request.get_json()
-        self.id = json['id']
+        self.id = str(uuid.uuid4())
         self.studentID = json['studentID']
         self.classID = json['classID']
         self.gradeInClass = json['gradeInClass']
-        self.story = request.args.get('story', None)
+        self.story = request.values.get('story', None)
 
     def row_to_obj(self):
         classForApp = ClassesForApp.query.filter_by(id=self.classID).first()
         prof = Professors.query.filter_by(id=classForApp.professorID).first()
-        ta = TAs.query.filter_by(id=self.studentID)
+        ta = TAs.query.filter_by(id=self.studentID).first()
+        print(ta.email)
         row = {
             'id':self.id,
             'studentID':self.studentID,
@@ -351,15 +348,16 @@ class Applications(db.Model):
             "profEmail" : prof.email,
             "profFirstName" : prof.firstName,
             "profLastName" : prof.lastName,
-            'email':ta.email,
+            'TAemail':ta.email,
             'TAFirstName':ta.firstName,
             'TALastName':ta.lastName,
-            'phone':ta.phone,
-            'major':ta.major,
-            'cum_gpa':ta.cum_gpa,
-            'expected_grad':ta.expected_grad,
-            'prev_TA':ta.prev_TA
+            'TAphone':ta.phone,
+            'TAmajor':ta.major,
+            'TAcum_gpa':ta.cum_gpa,
+            'TAexpected_grad':ta.expected_grad,
+            'TAprev_TA':ta.prev_TA
         }
+        return row
 
     def getAll():
         query = Applications.query.all()
@@ -410,11 +408,24 @@ class Sessions(db.Model):
     role = db.Column(db.String, nullable=False)
     expiration = db.Column(db.DateTime(timezone=False), nullable=False)
 
-    def __init__(self, userID, role):
+    def __init__(self, userID, role, now=None):
         self.id = str(uuid.uuid4())
         self.userID = userID
         self.role = role
-        self.expiration = datetime.datetime.utcnow+datetime.timedelta(hours=SESSION_EXPIRATION_HOURS)
+        if not now:
+            now = datetime.datetime.utcnow()
+        self.expiration = now+datetime.timedelta(hours=SESSION_EXPIRATION_HOURS)
+        print(self.expiration)
+
+    def row_to_obj(self):
+        row = {
+            'id':self.id,
+            'userId':self.userID,
+            'role':self.role,
+            'expiration':self.expiration
+        }
+        print(row)
+        return row
 
     def getAll():#TESTING ONLY
         query = Sessions.query.all()
@@ -426,9 +437,11 @@ class Sessions(db.Model):
 
     def validateSession(request):
         json = request.get_json()
-        userID = json['userId']
+        userID = json['userID']
         role = json['role']
-        query = Sessions.query.filter(and_(db.Sessions.userID == userId, db.Sessions.role == role, db.Sessions.expiration>=datetime.datetime.utcnow)).first()
+        query = Sessions.query.filter(and_(Sessions.userID == userID, Sessions.role == role, Sessions.expiration>=datetime.datetime.utcnow())).first()
+        print("QUERY:::::::")
+        print(query)
         if query is None:
             return False
         else:
@@ -439,3 +452,4 @@ class Sessions(db.Model):
         db.session.add(newSession)
         db.session.commit()
         db.session.refresh(newSession)
+        return ''
