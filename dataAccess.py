@@ -1,5 +1,5 @@
 from __main__ import app
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect, url_for
 from sqlalchemy import and_
 import flask_sqlalchemy as sqlalchemy
 import bcrypt, datetime, sys, uuid
@@ -63,7 +63,8 @@ class Professors(db.Model):
         print(hashedInput)
         if(prof.loginHash == hashedInput):
             Sessions.createSession(prof.id, "professor")
-            return jsonify({"status":1,"professor":prof.row_to_obj()}), 200
+            #return jsonify({"status":1,"professor":prof.row_to_obj()}), 200
+            return redirect('/TASplash', 302)
         else:
             print("I AM HERE")
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
@@ -81,7 +82,7 @@ class Professors(db.Model):
         db.session.commit()
         Professors.query.filter_by(id=requestedID).delete()
         db.session.commit()
-        return jsonify({"status:1","deleted":requestedID}),200
+        return jsonify({"status":1,"deleted":requestedID}),200
 
 class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForApp.id
     id = db.Column(db.Integer, primary_key=True, nullable=False)

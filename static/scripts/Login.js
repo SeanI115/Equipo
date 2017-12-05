@@ -1,34 +1,31 @@
 
 var Tracker = (function() {
-    
+
         // PRIVATE VARIABLES
-            
-        // The backend we'll use for Part 2. For Part 3, you'll replace this 
+
+        // The backend we'll use for Part 2. For Part 3, you'll replace this
         // with your backend.
-    
-        var apiUrl = 'https://mahan-warmup.herokuapp.com/api/';
-    
+
+        var apiUrl = 'http://127.0.0.1:5000/api/';
+
         // FINISH ME (Task 4): You can use the default smile space, but this means
         //            that your new smiles will be merged with everybody else's
-        //            which can get confusing. Change this to a name that 
-        //            is unlikely to be used by others. 
+        //            which can get confusing. Change this to a name that
+        //            is unlikely to be used by others.
         var loginForm;
         var signUpForm;
         var buttons;
         var studentSignUp;
         var isProfessor;
-        
+
 
          $(document).ready(function() {
-            
-            $('select').material_select();
-            $('ul.tabs').tabs();
-          });
-         
+    $('select').material_select();
+  });
         // PRIVATE METHODS
-          
+
        /**
-        * HTTP GET request 
+        * HTTP GET request
         * @param  {string}   url       URL path, e.g. "/api/smiles"
         * @param  {function} onSuccess   callback method to execute upon request success (200 status)
         * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
@@ -43,7 +40,7 @@ var Tracker = (function() {
                error: onFailure
            });
        };
-    
+
         /**
          * HTTP POST request
          * @param  {string}   url       URL path, e.g. "/api/smiles"
@@ -52,18 +49,21 @@ var Tracker = (function() {
          * @param  {function} onFailure   callback method to execute upon request failure (non-200 status)
          * @return {None}
          */
-        var makePostRequest = function(url, data, onSuccess, onFailure) {
+        var makePostRequest = function(url, data, onSuccess) {
             $.ajax({
                 type: 'POST',
                 url: apiUrl + url,
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 dataType: "json",
-                success: onSuccess,
-                error: onFailure
+                success: function(data, textStatus){
+                  if(data.redirect){
+                    window.location.href = data.redirect;
+                  }
+                }
             });
         };
-
+/*
         var attachStudentProfessorButtonHandler = function(e)
         {
             loginForm.hide();
@@ -130,31 +130,54 @@ var Tracker = (function() {
                 }
             });
         }
+*/
+        var attachLoginButtonsHandler = function(e)
+        {
+            login.on('click', '#taLoginButton', function(e){
+              var data = {}
+              data.email = $('#email').val();
+              data.password = $('#password').val();
+            });
+
+            login.on('click', '#profLoginButton', function(e){
+              var data = {}
+              data.email = $('#email').val();
+              data.password = $('#password').val();
+
+              var onSuccess = function(data){
+                //redirect
+                errorMessage.show();
+              }
+
+              var onFailure = function(){
+                errorMessage.show();
+              }
+
+              makePostRequest('loginProf', data, onSuccess);
+            });
+        }
 
         /**
          * Start the app by displaying the most recent smiles and attaching event handlers.
          * @return {None}
          */
         var start = function() {
-            buttons = $(".loginButtons");
-            loginForm = $(".loginForm");
-            signUpForm = $(".signUpForm");
-            studentSignUp = $(".student");
-    
-            attachStudentProfessorButtonHandler();
-            attachSignUpButtonHandler();
-            attachLoginButtonHandler();
+            login = $("#login");
+            errorMessage = $("#errorMessage")
+            errorMessage.hide();
+
+            attachLoginButtonsHandler();
         };
-        
-    
+
+
         // PUBLIC METHODS
         // any private methods returned in the hash are accessible via Smile.key_name, e.g. Smile.start()
         return {
             start: start
         };
-        
+
     })();
-    
+
 function showThis(ta)
          {
             var gpashow= document.getElementById("taform");

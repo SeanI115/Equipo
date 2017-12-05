@@ -2,7 +2,7 @@
 
 <html>
 <head>
-        <title>Login</title> 
+        <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet">
 
@@ -28,92 +28,6 @@
             <!--TODO: Should be just school logo on login page-->
             <img class="headerImg" src="images/whiteCougarHead.png">
         </header>
-        <!--<section class="mainbody login">
-            
-            <div class="loginUIDiv">
-                <div class="loginButtons">
-                    <h1 class="iam">Login: </h1>
-                    <div class="taButtonDiv">
-                        <a class="taButton button">Potential TA</a>
-                    </div>
-                    <div class="professorButtonDiv">
-                        <a class="professorButton button">Professor</a>
-                    </div>
-                </div>
-                <div class="loginForm">
-                    <p class="errorMessage">The provided email and password combination is incorrect. Please check your credentials and try again.</p>
-                    <div class="emailDiv">
-                        <p class="sd">Email:</p>
-                        <input type="text" class="emailInput input" name="email" placeholder="steve.jobs@wsu.edu"></textarea>
-                    </div>
-                    <div class="passwordDiv">
-                        <p>Password:</p>
-                        <input type="password" class="passwordInput input" name="password"></textarea>
-                    </div>
-                    <div>
-                        <a class="loginButton button">Login</a>
-                        <a class="signUpLink link">Sign Up</a>
-                    </div>
-                    <a class="cancelLink link" href="login.html">Cancel</a>
-                </div>
-                <form class="signUpForm col s12">
-                       	<div class="row">
-                       		<div class="input-field col s6">
-                       	 		<input type="text" class="wsuIdInput" name="wsuId" placeholder="WSU ID #">
-                       		</div>
-               
-                       	</div>
-                       	<div class="row">
-                       		<div class="input-field col s12">
-		                        <div class="student">
-		                        	<p>
-                            			<input type="checkbox" id="prevTaDiv" />
-                            			<label for="prevTaDiv">Previous TA?</label>
-                           			 </p>
-		                        	<div class="row">
-		                        		<div class="input-field col s12">
-		                            		<input type="text" class="majorInput" name="major" placeholder="Major">
-		                            	</div>
-		                            </div>
-		                            <div class="row">
-		                            	<div class="input-field col s6">
-		                            		<input type="text" class="gpaInput" name="gpa" placeholder="GPA">
-		                            	</div>
-		                            </div>
-		                            <div class="row">
-		                           			 <div class="input-field col s12" id="gradDate">
-				                           			 <select>
-				                                   	 <option value="Fall17">Fall 2017</option>
-				                                   	 <option value="Spring17">Spring 2017</option>
-				                                   	 <option value="Summer17">Summer 2017</option>
-				                                    <option value="Fall18">Fall 2018</option>
-				                                    <option value="Spring18">Spring 2018</option>
-				                                    <option value="Summer18">Summer 2018</option>
-				                                    <option value="Fall19">Fall 2019</option>
-				                                    <option value="Spring19">Spring 2019</option>
-				                                    <option value="Summer19">Summer 2019</option>
-				                                    <option value="Fall20">Fall 2020</option>
-				                                    <option value="Spring20">Spring 2020</option>
-				                                    <option value="Summer20">Summer 2020</option>
-				                                    <option value="Fall21">Fall 2021</option>
-				                                    <option value="Spring21">Spring 2021</option>
-				                                    <option value="Summer21">Summer 2021</option>
-						                            </select>
-						                            <label for="gradDate">Expected Grad Date:</label>
-						                        </div>
-		                    </div>
-		                </div>
-		            </div>
-                        </div>
-                        <input type="text" name="email" class="emailInput" placeholder="WSU Email">
-                        <input type="password" name="password" class="passwordInput" placeholder="Password">
-                        <div>
-                            <a class="signUpSubmitButton button">Submit</a>
-                            <a class="cancelLink link" href="login.html">Cancel</a>
-                        </div>
-                </form>
-            </div>
-        </section>-->
         <div class="card ">
         	<div class="card-tabs">
         		<ul class="tabs red darken-4 tabs-fixed-width">
@@ -124,12 +38,14 @@
         	<div class="card-content">
         		<div id="login">
         			<form class="col s12">
-        				<div class="form-container">
-        					<h3 class="red-text">Hello</h3>
-        					<div class="row"'>
+        				<div class="form-container centerForm">
+                  <div class="row" id="incorrect">
+                    <h2 id="errorMessage">Email or Password are incorrect</h2>
+                  </div>
+        					<div class="row">
         						<div class="input-field col s6">
         							<input placeholder="Email" name="email" id="email" type="text" class="emailInput">
-        							
+
         						</div>
         					</div>
         					<div class="row">
@@ -139,13 +55,14 @@
         				</div>
         				<br>
         				<center>
-        					<button class="btn waves-effect waves-light red darken-4" type="submit" name="action">Login</button>
+        					<button id="taLoginButton" class="btn waves-effect waves-light red darken-4 loginButtons">Login as TA</button>
+                  <button id="profLoginButton" class="btn waves-effect waves-light red darken-4 loginButtons">Login as Prof</button>
         					<br>
         				</center>
         			</div>
         		</form>
         		</div>
-        		<div id="register"> 
+        		<div id="register">
         			<form class="col s12">
         			<div class="form-container">
         				<h3 class="red-text">Sign Up!</h3>
@@ -159,10 +76,15 @@
         				<div class="row">
         					<div class="input-field col s6">
         						<input placeholder="First Name" id="firstname" type="text">
-        						
+
         					</div>
         					<div class="input-field col s6">
         						<input placeholder="Last Name" id="lastname" type="text">
+        					</div>
+        				</div>
+                <div class="row">
+        					<div class="input-field col s6">
+        						<input placeholder="WSU ID #" id="wsuID" type="text">
         					</div>
         				</div>
         				<div class="row" id="taform3" style="display:none">
@@ -173,7 +95,7 @@
         						<input type="checkbox" id="prevTa">
         						<label for="prevTa">Previous TA?</label>
         					</p>
-        					
+
         				</div>
         				<div class="row" id="taform" style="display:none">
         					<div class="input-field col s6">
