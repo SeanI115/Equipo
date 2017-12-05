@@ -1,17 +1,13 @@
 <html>
 
 <head>
+        <title> Course Creation Page </title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="images/titleIcon.ico">
-        <link rel="stylesheet" type="text/css" href="styles/ProfCourseCreate.css">
-        <title> Course Creation Page </title>
+        <!-- <link rel="stylesheet" type="text/css" href="styles/ProfCourseCreate.css"> -->
         <script src="scripts/jquery.min.js"></script>
-        <script type= "text/javascript" src="scripts/ProfCourseCreate.js"></script>
-        <script type="text/javascript" src="scripts/Login.js"></script>
+        <script type="text/javascript" src="scripts/ProfCourseCreate.js"></script>
         <script type="text/javascript">
-            // This is a jQuery convention to say that once all the files
-            // load, the function Smile.start() should run.
-            // This function is defined in the smiles.js
             $(function() {
                 Tracker.start();
             });
@@ -23,9 +19,12 @@
                 <img class="headerImg" src="images/whiteCougarHead.png" width=15%>
         </header>
         <section class="mainbody courseCreate">
-          <
-        	<form class="CourseCreateForm">
+          <div class="messages">
+            <p class="successMessage">Your class has been successfully created!</p>
             <p class="errorMessage">Either your input was incorrect or that class already exists. Try again.</p>
+            <button class="messageOKButton" type ="button" value="OK">OK</button>
+          </div>
+        	<form class="CourseCreateForm">
             <input type="text" placeholder="Subject" class="subjectInput" name="subject"/>
             <input type="text" placeholder="Course #" class="numberInput" name="number"/>
             <textarea class="descriptionInput" name="story">Describe your course...</textarea>

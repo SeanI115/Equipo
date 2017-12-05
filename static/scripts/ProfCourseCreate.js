@@ -48,42 +48,48 @@ var Tracker = (function() {
         attachCreateHandler = function(e) {
 
 
-          $('.errorMessage').hide();
+          $('.messages').hide();
 
 
           signUpForm.on('click', '.courseCreateSubmitButton', function(e){
 
               e.preventDefault();
 
-              var class = {};
+              var classOb = {};
 
-              class.prefix = courseForm.find('.subjectInput').val();
-              class.courseNumber = courseForm.find('.numberInput').val();
-              class.description = courseForm.find('.descriptionInput').val();
-              class.year = courseForm.find('.yearInput').val();
-              class.semester = courseForm.find('.semesterInput').val();
-              class.sections = courseForm.find('.sectionInput').val();
-              class.day = courseForm.find('.dayInput').val();
-              class.time = courseForm.find('.timeInput').val();
+              classOb.prefix = courseForm.find('.subjectInput').val();
+              classOb.courseNumber = courseForm.find('.numberInput').val();
+              classOb.description = courseForm.find('.descriptionInput').val();
+              classOb.year = courseForm.find('.yearInput').val();
+              classOb.semester = courseForm.find('.semesterInput').val();
+              classOb.sections = courseForm.find('.sectionInput').val();
+              classOb.day = courseForm.find('.dayInput').val();
+              classOb.time = courseForm.find('.timeInput').val();
 
 
               var onSuccess=function(data){
-
+                $('.messages').show();
+                $('.errorMessage').hide();
               }
               var onFailure=function(){
 
-                    
+                $('.messages').show();
+                $('.successMessage').hide();
               }
 
               makePostRequest('createClass',class,onSuccess,onFailure);
+          });
 
-              window.location.href = "ProfSplash.html"
+
+          signUpForm.on('click', '.messageOKButton', function(e){
+
+              $('.messages').hide();
 
           });
 
 
 
-        };
+        }
 
         /**
          * Start the app by displaying the most recent smiles and attaching event handlers.
@@ -93,8 +99,7 @@ var Tracker = (function() {
             buttons = $(".button");
             courseForm = $(".CourseCreateForm");
 
-            attachStudentProfessorButtonHandler();
-            //attachLoginButtonHandler();
+            attachCreateHandler();
         };
 
 
