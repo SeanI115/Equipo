@@ -46,7 +46,7 @@ class Professors(db.Model):
         validated = Sessions.validateSession()
         if(validated):
             prof = Professors.query.filter_by(id=request.args.get('requestedID'))
-            return jsonify({'status':1,'professor':prof.row_to_obj()}), 200
+            return jsonify({'status':1,'prof':prof.row_to_obj()}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
@@ -64,7 +64,7 @@ class Professors(db.Model):
         if(prof.loginHash == hashedInput):
             Sessions.createSession(prof.id, "professor")
             #return jsonify({"status":1,"professor":prof.row_to_obj()}), 200
-            return redirect('/TASplash', 302)
+            return jsonify({"status":1,"loggedIn":prof.row_to_obj()}), 200
         else:
             print("I AM HERE")
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
@@ -126,7 +126,7 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         print(hashedInput, file=sys.stderr)
         if(ta.loginHash == hashedInput):
             Sessions.createSession(ta.id, "ta")
-            return jsonify({"status":1,"ta":ta.row_to_obj()}), 200
+            return jsonify({"status":1,"loggedIn":ta.row_to_obj()}), 200
         else:
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
 

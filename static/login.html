@@ -37,7 +37,7 @@
         	</div>
         	<div class="card-content">
         		<div id="login">
-        			<form class="col s12">
+        			<form id="loginForm" class="col s12" action="" method="POST">
         				<div class="form-container centerForm">
                   <div class="row" id="incorrect">
                     <h2 id="errorMessage">Email or Password are incorrect</h2>
@@ -49,13 +49,14 @@
         						</div>
         					</div>
         					<div class="row">
-        					<div class="input-field col s6">
-        						<input placeholder="Password" name="password" id="password" type="password" class="passwordInput">
-        					</div>
-        				</div>
+          					<div class="input-field col s6">
+          						<input placeholder="Password" name="password" id="password" type="password" class="passwordInput">
+          					</div>
+          				</div>
         				<br>
         				<center>
-        					<button class="btn waves-effect waves-light red darken-4" type="submit">Login</button>
+        					<button id='loginTAButton' class="btn waves-effect waves-light red darken-4" type="button" onClick="attemptLogin(this.id)">Login as TA</button>
+                  <button id='loginProfButton' class="btn waves-effect waves-light red darken-4" type="button" onClick="attemptLogin(this.id)">Login as Prof</button>
         					<br>
         				</center>
         			</div>
@@ -105,8 +106,8 @@
         					</div>
         				</div>
         				<div class="row" id="taform2" style="display:none">
-        					<div class="input-field col s12" id="gradDate">
-        						<select>
+        					<div class="input-field col s12">
+        						<select id="gradDate">
         							<option value="Fall17">Fall 2017</option>
 				                    <option value="Spring17">Spring 2017</option>
 				                    <option value="Summer17">Summer 2017</option>
@@ -128,18 +129,18 @@
 						</div>
         				<div class="row">
         					<div class="input-field col s12">
-        						<input id="email" type="email">
+        						<input id="emailField" type="email">
         						<label for="email">Email</label>
         					</div>
         				</div>
         				<div class="row">
         					<div class="input-field col s12">
-        						<input id="password" type="password">
+        						<input id="passwordField" type="password">
         						<label for="password">Password</label>
         					</div>
         				</div>
         				<center>
-        					<button class="btn waves-effect waves-light red" type="submit">Submit</button>
+        					<button class="btn waves-effect waves-light red" type="button" onClick="makeSignUpRequest()">Submit</button>
         				</center>
         			</div>
         		</form>
