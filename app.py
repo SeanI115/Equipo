@@ -18,6 +18,8 @@ def create(classForCreate, request):
     db.session.add(newThing)
     db.session.commit()
     db.session.refresh(newThing)
+    if(classForCreate == Professors): Sessions.createSession(newThing.id, 'prof')
+    if(classForCreate == TAs): Sessions.createSession(newThing.id, 'ta')
     return jsonify({"status":1,'created':newThing.row_to_obj()}), 200
 
 @app.route(base_url+'createProf',methods=["POST"])

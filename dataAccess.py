@@ -62,7 +62,7 @@ class Professors(db.Model):
         hashedInput = str(bcrypt.hashpw(password.encode('utf8'), prof.salt))
         print(hashedInput)
         if(prof.loginHash == hashedInput):
-            Sessions.createSession(prof.id, "professor")
+            Sessions.createSession(prof.id, "prof")
             #return jsonify({"status":1,"professor":prof.row_to_obj()}), 200
             return jsonify({"status":1,"loggedIn":prof.row_to_obj()}), 200
         else:
@@ -172,7 +172,7 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         validated = False
         if(role == None):
             return jsonify({"status":-1,"errors":"role can not be None"}), 400
-        elif(role=="professor"):
+        elif(role=="prof"):
             validated = Sessions.validateSession(request)
         elif(role=="ta"):
             if requestedID == userID:
@@ -450,6 +450,7 @@ class Sessions(db.Model):
 
     def createSession(userId, role):
         newSession = Sessions(userId, role)
+        print('Create Session:{0}\t{1}'.format(userId, role), file=sys.stderr)
         db.session.add(newSession)
         db.session.commit()
         db.session.refresh(newSession)
