@@ -9,15 +9,16 @@
 }
 
 header {
-	display: block;
+	display: inline-block;
 	width: 100%;
+
 	text-align: left;
 	position: relative;
 	background-color: var(--wsuCrimson);
 	font-family: Arial;
 }
 
-body {
+/*body {
 	margin: 0;
     width: 100%;
     height: 100%;
@@ -100,7 +101,7 @@ label{
 }
 
 .loginUIDiv{
-    display:block;
+    display:inline-block;
 }
 .input{
     height: 50px;
@@ -124,7 +125,7 @@ label{
 }
 
 .login{
-    position: auto;
+    position: left;
     display: inline-block;
     -webkit-transform: translate(-50%,-60%);
     transform: translate(-50%,-60%);
@@ -135,12 +136,10 @@ label{
     background-color: white;
     border-color: black;
     border-radius: 20px;
-    padding: 30px 40px;
+    padding: 30px 30px;
     box-shadow: 5px 5px 10px black;
     cursor: default;
 }
-
-
 .signUpForm{
     display: inline-block;
     text-align: left;
@@ -158,4 +157,34 @@ label{
 .errorMessage{
     font-size: 20px;
     color: red;
+}*/
+h5
+{
+    font-weight: 400;
 }
+
+.container
+{
+    margin-top: 80px;
+    width: 400px;
+    height: 10px;
+}
+
+.tabs .indicator
+{
+    background-color: #e0f2f1;
+    height: 60px;
+    opacity: 0.3;
+}
+
+.form-container
+{
+    padding: 40px;
+    padding-top: 10px;
+}
+
+.confirmation-tabs-btn
+{
+    position: absolute;
+}
+

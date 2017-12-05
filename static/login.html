@@ -28,14 +28,11 @@
             <!--TODO: Should be just school logo on login page-->
             <img class="headerImg" src="images/whiteCougarHead.png">
         </header>
-        <section class="mainbody login">
-            <!-- TODO: Login form should initially be hidden. 
-                 Clicking TA or Prof will hide the buttons and 
-                 add a request param that will be passed along 
-                 with form data -->
+        <!--<section class="mainbody login">
+            
             <div class="loginUIDiv">
                 <div class="loginButtons">
-                    <h1 class="iam">I am a...</h1>
+                    <h1 class="iam">Login: </h1>
                     <div class="taButtonDiv">
                         <a class="taButton button">Potential TA</a>
                     </div>
@@ -60,17 +57,19 @@
                     <a class="cancelLink link" href="login.html">Cancel</a>
                 </div>
                 <form class="signUpForm col s12">
-                        <!-- <div class="input-field col s6">
-                       		 <input type="text" class="lastNameInput" name="lastName" placeholder="Last Name">
-                       	</div> -->
                        	<div class="row">
-                       		<div class="input-field col s12">
+                       		<div class="input-field col s6">
                        	 		<input type="text" class="wsuIdInput" name="wsuId" placeholder="WSU ID #">
                        		</div>
+               
                        	</div>
                        	<div class="row">
                        		<div class="input-field col s12">
 		                        <div class="student">
+		                        	<p>
+                            			<input type="checkbox" id="prevTaDiv" />
+                            			<label for="prevTaDiv">Previous TA?</label>
+                           			 </p>
 		                        	<div class="row">
 		                        		<div class="input-field col s12">
 		                            		<input type="text" class="majorInput" name="major" placeholder="Major">
@@ -105,12 +104,6 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <div class="row">
-                            <p>
-                            	<input type="checkbox" id="prevTaDiv" />
-                            	<label for="prevTaDiv">Previous TA?</label>
-                            <p>
-                            </div>
                         </div>
                         <input type="text" name="email" class="emailInput" placeholder="WSU Email">
                         <input type="password" name="password" class="passwordInput" placeholder="Password">
@@ -120,6 +113,111 @@
                         </div>
                 </form>
             </div>
-        </section>
+        </section>-->
+        <div class="card ">
+        	<div class="card-tabs">
+        		<ul class="tabs red darken-4 tabs-fixed-width">
+        			<li class="tab"><a class="white-text" href="#login">Login</a></li>
+        			<li class="tab"><a class="white-text" href="#register">Register</a></li>
+        		</ul>
+        	</div>
+        	<div class="card-content">
+        		<div id="login">
+        			<form class="col s12">
+        				<div class="form-container">
+        					<h3 class="red-text">Hello</h3>
+        					<div class="row"'>
+        						<div class="input-field col s6">
+        							<input name="email" id="email" type="text" class="emailInput">
+        							<label for="email">Email</label>
+        						</div>
+        					</div>
+        					<div class="row">
+        					<div class="input-field col s6">
+        						<input name="password" id="password" type="password" class="passwordInput">
+        						<label for="password">Password</label>
+        					</div>
+        				</div>
+        				<br>
+        				<center>
+        					<button class="btn waves-effect waves-light red darken-4" type="submit" name="action">Login</button>
+        					<br>
+        				</center>
+        			</div>
+        		</form>
+        		</div>
+        		<div id="register"> 
+        			<form class="col s12">
+        			<div class="form-container">
+        				<h3 class="red-text">Sign Up!</h3>
+        				<div class="row">
+        					<p>
+        						<input type="checkbox" id="ta" onclick="showThis(this)">
+        						<label for="ta">Check if creating TA account</label>
+        					</p>
+        				</div>
+
+        				<div class="row">
+        					<div class="input-field col s6">
+        						<input id="firstname" type="text">
+        						<label for="firstname">First Name</label>
+        					</div>
+        					<div class="input-field col s6">
+        						<input id="lastname" type="text">
+        						<label for="lastname"> Last Name</label>
+        					</div>
+        				</div>
+        				<div class="row" id="taform" style="display:none">
+        					<div class="input-field col s6">
+        						<input name="major" id="major" type="text" class="majorInput">
+        						<label for="major">Major</label>
+        					</div>
+        					<div class="input-field col s6">
+        						<input name="gpa" id="gpa" type="text" class="gpaInput">
+        						<label for="gpa">GPA</label>
+        					</div>
+        				</div>
+        				<div class="row" id="taform2" style="display:none">
+        					<div class="input-field col s12" id="gradDate">
+        						<select>
+        							<option value="Fall17">Fall 2017</option>
+				                    <option value="Spring17">Spring 2017</option>
+				                    <option value="Summer17">Summer 2017</option>
+				                    <option value="Fall18">Fall 2018</option>
+				                    <option value="Spring18">Spring 2018</option>
+				                    <option value="Summer18">Summer 2018</option>
+				                    <option value="Fall19">Fall 2019</option>
+				                    <option value="Spring19">Spring 2019</option>
+				                    <option value="Summer19">Summer 2019</option>
+				                    <option value="Fall20">Fall 2020</option>
+				                    <option value="Spring20">Spring 2020</option>
+				                    <option value="Summer20">Summer 2020</option>
+				                    <option value="Fall21">Fall 2021</option>
+				                    <option value="Spring21">Spring 2021</option>
+				                    <option value="Summer21">Summer 2021</option>
+						        </select>
+						        <label for="gradDate">Expected Grad Date:</label>
+						    </div>
+						</div>
+        				<div class="row">
+        					<div class="input-field col s12">
+        						<input id="email" type="email">
+        						<label for="email">Email</label>
+        					</div>
+        				</div>
+        				<div class="row">
+        					<div class="input-field col s12">
+        						<input id="password" type="password">
+        						<label for="password">Password</label>
+        					</div>
+        				</div>
+        				<center>
+        					<button class="btn waves-effect waves-light red" type="submit" name="action">Submit</button>
+        				</center>
+        			</div>
+        		</form>
+        	</div>
+        </div>
+    </div>
 </body>
 </html>

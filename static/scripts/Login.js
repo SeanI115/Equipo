@@ -20,8 +20,10 @@ var Tracker = (function() {
         
 
          $(document).ready(function() {
-    $('select').material_select();
-  });
+            $('select').material_select();
+            $('ul.tabs').tabs();
+          });
+         
         // PRIVATE METHODS
           
        /**
@@ -152,4 +154,10 @@ var Tracker = (function() {
         
     })();
     
-
+function showThis(ta)
+         {
+            var gpashow= document.getElementById("taform");
+            var gpashow2= document.getElementById("taform2");
+            gpashow.style.display = ta.checked ? "block" : "none";
+            gpashow2.style.display = ta.checked ? "block" : "none";
+         }
