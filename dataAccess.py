@@ -42,10 +42,10 @@ class Professors(db.Model):
         print(result, file=sys.stderr)
         return jsonify({"status": 1, "professors": result}), 200
 
-    def getProfByID(request):
-        validated = Sessions.validateSession()
+    def getProfByID(id):
+        validated = Sessions.validateSessionIDRole(id, 'prof')
         if(validated):
-            prof = Professors.query.filter_by(id=request.args.get('requestedID'))
+            prof = Professors.query.filter_by(id=id)
             return jsonify({'status':1,'prof':prof.row_to_obj()}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
@@ -165,22 +165,11 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         print(result, file=sys.stderr)
         return jsonify({"status": 1, "tas": result}), 200
 
-    def getByID(request):
-        role = request.args.get('role', None)
-        userId = request.args.get('userId', None)
-        requestedId = request.args.get('requestedID', None)
-        validated = False
-        if(role == None):
-            return jsonify({"status":-1,"errors":"role can not be None"}), 400
-        elif(role=="prof"):
-            validated = Sessions.validateSession(request)
-        elif(role=="ta"):
-            if requestedID == userID:
-                validated = Sessions.validateSession(request)
-            else:
-                return jsonify({"status":-1,"errors":"Access Denied"}), 401
-        else:
-            return jsonify({"status":-1,"errors":"Access Denied"}), 401
+    def getByID(id):
+        role = 'ta'
+        userId = id
+        requestedId = id
+        validated = Sessions.validateSessionIDRole(id, role)
         toReturn = TAs.query.filter_by(id = requestedID).first()
         if toReturn is None:
             return jsonify({"status":-1,"errors":"TA not found"}), 401
@@ -239,10 +228,16 @@ class ClassesForApp(db.Model):
         return jsonify({"status": 1, "classes": result}), 200
 
     def getClassPrefixes(request):
-        prefixes = []
+        prefixes = set()
         for prefix in ClassesForApp.query.distinct(ClassesForApp.prefix):
-            prefixes.append(prefix)
-        return jsonify({"status": 1, "prefixes": prefixes}), 200
+            prefixes.add(prefix.prefix)
+        return jsonify({"status": 1, "prefixes": list(prefixes)}), 200
+
+    def getCourseNumbers(prefix):
+        numbers = set()
+        for number in ClassesForApp.query.filter_by(prefix=prefix).distinct(ClassesForApp.courseNumber):
+            numbers.add(number.courseNumber)
+        return jsonify({"status":1,"numbers":list(numbers)}), 200
 
     def getClassesByProfId(profid, role):
         validated = Sessions.validateSessionIDRole(profid,role)
@@ -256,30 +251,27 @@ class ClassesForApp(db.Model):
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
-    def getClassesByPrefix(request):
-        validated = Sessions.validateSession(request)
+    def getClassesByPrefix(prefix, id):
+        validated = Sessions.validateSessionIDRole(id, 'ta')
         if validated:
-            prefix = request.args.get('prefix', None)
-            if prefix is None:
-                return jsonify({"status":-1,"errors":"must include prefix"}), 500
-            else:
-                query = ClassesForApp.query.filter_by(prefix=prefix)
-                classes = []
-                for row in query:
-                    classes.append(row.row_to_obj_with_prof())
-                print(classes, file=sys.stderr)
-                return jsonify({"status": 1, "classes": classes}), 200
+            query = ClassesForApp.query.filter_by(prefix=prefix)
+            classes = []
+            for row in query:
+                classes.append(row.row_to_obj_with_prof())
+            print(classes, file=sys.stderr)
+            return jsonify({"status": 1, "classes": classes}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
     def addTAToClass(request):
         validated = Sessions.validateSession(request)
         if validated:
-            classToAddID = request.args.get('classToAddID', None)
+            json = request.get_json()
+            acceptedApp = Applications.query.filter_by(id=json['id']).first()
+            classToAddID = acceptedApp.classID
             classToAdd = ClassesForApp.query.filter_by(id=classToAddID).first()
             if classToAdd:
-                studentToAdd = request.args.get('studentToAddID', None)
-                student = TAs.query.filter_by(id=studentToAdd).first()
+                student = TAs.query.filter_by(id=acceptedApp.studentID).first()
                 if student:
                     classToAdd.TAsAddedList += ','
                     classToAdd.TAsAddedList += student.id

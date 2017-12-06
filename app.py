@@ -31,9 +31,9 @@ def createProf():
 def getAllProfs():
     return Professors.getAll()
 
-@app.route(base_url+'ProfByID',methods=["GET"])
+@app.route(base_url+'ProfByID/<string:id>',methods=["GET"])
 def ProfByID():
-    return Professors.getProfByID(request)
+    return Professors.getProfByID(id)
 
 @app.route(base_url+'loginProf',methods=['POST'])
 def loginProf():
@@ -55,9 +55,9 @@ def getAllTAs():
 def loginTA():
     return TAs.attemptLogin(request)
 
-@app.route(base_url+'TAByID',methods=["GET"])
-def getTAByID():
-    return TAs.getByID(request)
+@app.route(base_url+'TAByID/<string:id>',methods=["GET"])
+def getTAByID(id):
+    return TAs.getByID(id)
 
 @app.route(base_url+'createClass',methods=["POST"])
 def createClass():
@@ -77,9 +77,17 @@ def getClassesByProfID(profid, role):
 def getClassPrefixes():
     return ClassesForApp.getClassPrefixes(request)
 
-@app.route(base_url+'ClassesByPrefix',methods=["GET"])
-def getClassesByPrefix():
-    return ClassesForApp.getClassesByPrefix(request)
+@app.route(base_url+'ClassesByPrefix/<string:prefix>/<string:id>/<string:role>',methods=["GET"])
+def getClassesByPrefix(prefix, id, role):
+    return ClassesForApp.getClassesByPrefix(prefix, id)
+
+@app.route(base_url+'getCourseNumbers/<string:prefix>/',methods=["GET"])
+def getCourseNumbers(prefix):
+    return ClassesForApp.getCourseNumbers(prefix)
+
+@app.route(base_url+'addTA',methods=['POST'])
+def addTA():
+    return ClassesForApp.addTAToClass(request)
 
 @app.route(base_url+'DeleteClassByID',methods=["DELETE"])
 def deleteClassByID():
