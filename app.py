@@ -8,7 +8,7 @@ CORS(app)
 
 
 from dataAccess import db, Professors, TAs, ClassesForApp, Applications, Sessions
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dataAccessTest.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 base_url = '/api/'
 ######### START OF WORKING CODE
 
@@ -110,7 +110,7 @@ def getAllSessions():
     return Sessions.getAll()
 
 def main():
-    db.create_all() # creates the tables you've provided
+    #db.create_all() # creates the tables you've provided
     app.run()       # runs the Flask application
 
 if __name__ == '__main__':

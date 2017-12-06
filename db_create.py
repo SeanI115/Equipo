@@ -1,2 +1,2 @@
-from app import db
+from dataAccess import db
 db.create_all()
