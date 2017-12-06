@@ -4,6 +4,9 @@ var Tracker = (function() {
         var apiUrl = 'http://127.0.0.1:5000';
 
 
+        var buttons;
+        var courseForm;
+
        /**
         * HTTP GET request
         * @param  {string}   url       URL path, e.g. "/api/smiles"
@@ -40,10 +43,6 @@ var Tracker = (function() {
                 error: onFailure
             });
         };
-
-
-        var buttons;
-        var courseForm;
 
         attachCreateHandler = function(e) {
 

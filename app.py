@@ -1,67 +1,109 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import flask_sqlalchemy as sqlalchemy
-import datetime
+import bcrypt, datetime, sys, uuid
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
-
-db = sqlalchemy.SQLAlchemy(app)
-
-def row_to_obj_ta(row):
-    row = {
-            "id": row.id,
-            "firstName": row.firstName,
-            "lastName": row.lastName,
-            "email": row.email,
-            "password": row.password,
-            "major": row.major,
-            "gpa": row.gpa,
-            "gradDate": row.gradDate
-        }
-    return row
-
-class TAs(db.Model):
-    id = db.Column(db.Integer, primary_key=True, nullable=False)#this is the email
-    firstName = db.Column(db.String(64), nullable=False)
-    lastName = db.Column(db.String(64), nullable=False)
-    email = db.Column(db.String(64))
-    password = db.Column(db.String(64))
-    major = db.Column(db.String(64))
-    gpa = db.Column(db.Float)
-    gradDate = db.Column(db.String(64))
 
 
-    def __init__(self, id, firstName, lastName, email, password, major, gpa, gradDate):
-        self.id = id
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-        self.password = password
-        self.major = major
-        self.gpa = gpa
-        self.gradDate = gradDate
-
-
+from dataAccess import db, Professors, TAs, ClassesForApp, Applications, Sessions
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dataAccessTest.db'
 base_url = '/api/'
+######### START OF WORKING CODE
 
+def create(classForCreate, request):
+    newThing = classForCreate(request)
+    print(newThing, file=sys.stderr)
+    db.session.add(newThing)
+    db.session.commit()
+    db.session.refresh(newThing)
+    return jsonify({"status":1,'created':newThing.row_to_obj()}), 200
+
+@app.route(base_url+'createProf',methods=["POST"])
+def createProf():
+    return create(Professors, request)
+
+
+@app.route(base_url+'Profs',methods=["GET"])
+def getAllProfs():
+    return Professors.getAll()
+
+@app.route(base_url+'ProfByID',methods=["GET"])
+def ProfByID():
+    return Professors.getProfByID(request)
+
+@app.route(base_url+'loginProf',methods=['POST'])
+def loginProf():
+    return Professors.attemptLogin(request)
+
+@app.route(base_url+'deleteProf',methods=["DELETE"])
+def deleteProf():
+    return Professors.deleteProf(request)
 
 @app.route(base_url+'createTA',methods=["POST"])
 def createTA():
-    json = request.get_json()
-    ta = TAs(**request.json)
-    db.session.add(ta)
-    db.session.commit()
-    db.session.refresh(ta)
-    return jsonify({"status":1,"TA":row_to_obj_ta(ta)}), 200
+    return create(TAs, request)
 
+@app.route(base_url+'TAs',methods=["GET"])
+def getAllTAs():
+    return TAs.getAll()
 
-@app.route(base_url+'TA/<int:id>', methods=["GET"])
-def show(id):
-     row = TAs.query.filter_by(id=id).first()
-     return jsonify({"status": 1, "TA": row_to_obj_ta(row)}), 200
+@app.route(base_url+'loginTA',methods=['POST'])
+def loginTA():
+    return TAs.attemptLogin(request)
 
+@app.route(base_url+'TAByID',methods=["GET"])
+def getTAByID():
+    return TAs.getByID(request)
+
+@app.route(base_url+'createClass',methods=["POST"])
+def createClass():
+    return create(ClassesForApp, request)
+
+@app.route(base_url+'Classes',methods=["GET"])
+def getAllClasses():
+    return ClassesForApp.getAll()
+
+@app.route(base_url+'ClassesByProfID',methods=["GET"])
+def getClassesByProfID():
+    return ClassesForApp.getClassesByProfId(request)
+
+@app.route(base_url+'ClassPrefixes',methods=["GET"])
+def getClassPrefixes():
+    return ClassesForApp.getClassPrefixes(request)
+
+@app.route(base_url+'ClassesByPrefix',methods=["GET"])
+def getClassesByPrefix():
+    return ClassesForApp.getClassesByPrefix(request)
+
+@app.route(base_url+'DeleteClassByID',methods=["DELETE"])
+def deleteClassByID():
+    ClassesForApp.deleteClassByID(request)
+
+@app.route(base_url+'createApplication',methods=["POST"])
+def createApplication():
+    return create(Applications, request)
+
+@app.route(base_url+'Applications',methods=["GET"])
+def getAllApplications():
+    return Applications.getAll()
+
+@app.route(base_url+'AppsByTAID',methods=["GET"])
+def getAppsByTAID():
+    return Applications.getAppsByTAID(request)
+
+@app.route(base_url+'AppsForClass',methods=["GET"])
+def getAppsByClass():
+    return Applications.getAppsForClass(request)
+
+@app.route(base_url+'DeleteApp',methods=["DELETE"])
+def deleteAppByID():
+    return Applications.deleteAppByID(request)
+
+@app.route(base_url+'Sessions',methods=["GET"])
+def getAllSessions():
+    return Sessions.getAll()
 
 def main():
     db.create_all() # creates the tables you've provided

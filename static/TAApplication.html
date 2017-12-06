@@ -1,32 +1,99 @@
+<!DOCTYPE html>
+
 <html>
-        
-        <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="icon" href="images/titleIcon.ico">
-                <title> Course Creation Page </title>
-                <script src="scripts/jquery.min.js"></script>
-                <script type="text/javascript" src="scripts/Login.js"></script>
-                <script type="text/javascript">
-                    // This is a jQuery convention to say that once all the files
-                    // load, the function Smile.start() should run.
-                    // This function is defined in the smiles.js
-                    $(function() {
-                        Tracker.start();
-                    });
-                </script>
-        </head>
-        
-        <body>
-                <header>
-                        <img class="headerImg" src="images/whiteCougarHead.png">
-                </header>
-                <section>
-        
-                </section>
-                    
-        
-                
-        
-        </body>
-        
-        </html>
+<head>
+		<title>Application Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="images/titleIcon.ico">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      		rel="stylesheet">
+      	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+		<link rel="stylesheet" type="text/css" href="styles/TAApplication.css">
+  		<script type="text/javascript" src="scripts/jquery.min.js"></script>
+  	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		<script type="text/javascript" src="scripts/TAApplication.js"></script>
+	</head>
+	<body>
+			<header>
+				<img class="headerImg" src="images/whiteCougarHead.png">
+			</header>
+			<div class="card">
+				<div class="card-content">
+					<form class=col s12>
+						<div class="form-container">
+							<h3 class="red-text">Application</h3>
+							<div class="row">
+								<div class="input-field col s6">
+									<select>
+										<option value="" disabled selected>Choose Course</option>
+										<option value="1">CS 121</option>
+										<option value="2">CS 122</option>
+									</select>
+									<label>Course Select</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6">
+									<select>
+										<option value="" disabled selected>Choose Time</option>
+										<option value="time1">9:00 am</option>
+										<option value="time2">10:00 am</option>
+									</select>
+									<label>Time Select</label>
+								</div>
+							</div>
+							<center>
+								<button class="btn waves-effect waves-light red darken-4" type="submit">Submit</button>
+							</center>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- <section class="mainbody application">
+				<div class="row">
+				  <form class="col s12">
+				  	<div class="input-field col s6">
+				  		<div class="row">
+					  		<select id="Course" title="" name="Course">
+					  			<option value="" disabled selected>Choose Course</option>
+					  			<option value="1">CS 121</option>
+					  			<option value="2">CS 122</option>
+					  		</select>
+					  		<label>Course Select</label>
+					  		</div>
+				  	</div>
+				  	<div class="input-field col s6" id='Course time'>
+				  		<div class="row">
+				  			<select>
+					  			<option value="" disabled selected>Choose Course Time</option>
+					  			<option value="3">9 am</option>
+					  			<option value="4">10 am</option>
+					  		</select>
+					  		<label>Course Time</label>
+					  		</div>
+				  	</div>
+				  </div>
+
+				    <div class="row">
+				      <div class="input-field col s6">
+				      	<i class="material-icons prefix">assignment</i>
+				        <input id="gpa" type="number" class="validate">
+				        <label for="gpa">GPA</label>
+				      </div>
+				    </div>
+
+				    <div class="row">
+				      <div class="input-field col s6">
+				      	<i class="material-icons prefix">email</i>
+				        <input id="email" type="email" class="validate">
+				        <label for="email">Email</label>
+				      </div>
+				    </div>
+				    <div class="row">
+				    	<button class="btn waves-effect waves-light red" type="submit" name="action">Submit<i class="material-icons right">send</i>
+				    	</button>
+				    </div>
+				  </form>
+				</div>
+			</section> -->
+		</body>

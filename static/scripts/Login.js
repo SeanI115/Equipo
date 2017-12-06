@@ -8,10 +8,6 @@ var Tracker = (function() {
 
         var apiUrl = 'http://127.0.0.1:5000';
 
-        // FINISH ME (Task 4): You can use the default smile space, but this means
-        //            that your new smiles will be merged with everybody else's
-        //            which can get confusing. Change this to a name that
-        //            is unlikely to be used by others.
         var loginForm;
         var signUpForm;
         var buttons;
@@ -62,6 +58,7 @@ var Tracker = (function() {
         {
             loginForm.hide();
             signUpForm.hide();
+
             buttons.on('click', '.taButton', function(e){
                 buttons.hide();
                 loginForm.show();
