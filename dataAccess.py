@@ -244,7 +244,7 @@ class ClassesForApp(db.Model):
             classes = ClassesForApp.query.filter_by(professorID = profid).all()
             result = []
             for row in classes:
-                result.append(row.row_to_obj_with_prof())
+                result.append(row.row_to_obj())
             return jsonify({"status": 1, "classes": result}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
@@ -365,18 +365,11 @@ class Applications(db.Model):
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
-    def getAppsForClass(request):
-        requestedId=request.args.get('requestedId', None)
-        validated= Sessions.validateSession(request)
-        if validated:
-            query = Applications.query.filter_by(classID=requestedId).all()
-            apps = []
-            tas = []
-            for row in query:
-                classes.append(row.row_to_obj())
-            return jsonify({"status": 1, "apps": apps, "classes": classes, "ta": ta}), 200
-        else:
-            return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
+    def getAppsForClass(requestedID):
+        query = Applications.query.filter_by(classID=requestedId).all()
+        for row in query:
+            apps.append(row.row_to_obj())
+        return jsonify({"status": 1, "apps": apps}), 200
 
     def deleteAppByID(request):
         validated = Sessions.validateSession()

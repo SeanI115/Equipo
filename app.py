@@ -109,9 +109,9 @@ def getAllApplications():
 def getAppsByTAID():
     return Applications.getAppsByTAID(request)
 
-@app.route(base_url+'AppsForClass',methods=["GET"])
-def getAppsByClass():
-    return Applications.getAppsForClass(request)
+@app.route(base_url+'AppsForClass/<string:requestedID>',methods=["GET"])
+def getAppsByClass(requestedID):
+    return Applications.getAppsForClass(requestedID)
 
 @app.route(base_url+'DeleteApp',methods=["DELETE"])
 def deleteAppByID():

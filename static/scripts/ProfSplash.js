@@ -6,6 +6,8 @@ var Tracker = (function() {
 
         var id;
         var role;
+        var template;
+        var classes;
 
         var makeGetRequest = function(url, onSuccess, onFailure) {
             $.ajax({
@@ -29,25 +31,30 @@ var Tracker = (function() {
             });
         };
 
-        var insertClass = function(toInsert){}
-
-        var displayProfClasses = function(){
-          var classes= getClassesForProf();
-          for(var i = 0; i <classes.length; i++){
-            insertClass(classes[i]);
-          }
+        var insertClass = function(toInsert){
+          var header = '<a class="collection-item" onClick=addTARedirect(this) id="'
+          header += toInsert.id+'">'
+          var classTitle = toInsert.prefix+toInsert.courseNumber;
+          var section = toInsert.labSection;
+          var semester = toInsert.semester;
+          var tas = toInsert.numTAsAdded+'/'+toInsert.numTAsNeeded+"TAs";
+          var prof = toInsert.lastName+', '+toInsert.firstName;
+          classStr = header+classTitle+' '+semester+' '+section+' '+tas+' '+prof+'</a>'
+          classes.append(classStr)
         }
 
-        var getClassesForProf = function(){
+        var displayProfClasses = function(){
           apiFunction='ClassesByProfID'
           var onSuccess=function(data)
           {
-            return data.classes;
+            for(var i = 0; i < data.classes.length;i++){
+              insertClass(data.classes[i])
+            }
           }
 
           var onError=function()
           {
-            return []
+
           }
 
           makeGetRequest('ClassesByProfID/'+id+'/'+role+'/', onSuccess, onError);
@@ -66,7 +73,8 @@ var Tracker = (function() {
         var start = function() {
             id = getParameterByName('id')
             role = getParameterByName('role')
-            //displayProfClasses();
+            classes = $('#classes')
+            displayProfClasses();
         };
 
 
@@ -116,6 +124,16 @@ function myInfoRedirect(){
   window.location.href = newUrl;
 }
 
+function addTARedirect(item){
+  var url= window.location.href;
+  var splitIndex = url.indexOf("?");
+  var info = '';
+  if(splitIndex !=-1){
+    info = url.slice(splitIndex);
+  }
+  var newUrl = MANAGE_TAS_REDIRECT_URL + info + '&classID='+item.id;
+  window.location.href = newUrl;
+}
 
 
 
