@@ -67,9 +67,11 @@ def createClass():
 def getAllClasses():
     return ClassesForApp.getAll()
 
-@app.route(base_url+'ClassesByProfID',methods=["GET"])
-def getClassesByProfID():
-    return ClassesForApp.getClassesByProfId(request)
+@app.route(base_url+'ClassesByProfID/<string:profid>/<string:role>/',methods=["GET"])
+def getClassesByProfID(profid, role):
+    print(profid)
+    print(role)
+    return ClassesForApp.getClassesByProfId(profid, role)
 
 @app.route(base_url+'ClassPrefixes',methods=["GET"])
 def getClassPrefixes():

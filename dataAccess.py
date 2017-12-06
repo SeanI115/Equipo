@@ -247,13 +247,12 @@ class ClassesForApp(db.Model):
             prefixes.append(prefix)
         return jsonify({"status": 1, "prefixes": prefixes}), 200
 
-    def getClassesByProfId(request):
-        id=request.args.get('userId', None)
-        validated = Sessions.validateSession(request)
+    def getClassesByProfId(profid, role):
+        validated = Sessions.validateSessionIDRole(profid,role)
         if validated:
-            classes = ClassesForApp.query.filter_by(id = professorID).all()
+            classes = ClassesForApp.query.filter_by(id = profid).all()
             result = []
-            for row in query:
+            for row in classes:
                 result.append(row.row_to_obj_with_prof())
             print(result, file=sys.stderr)
             return jsonify({"status": 1, "classes": result}), 200
@@ -441,8 +440,13 @@ class Sessions(db.Model):
         userID = json['userID']
         role = json['role']
         query = Sessions.query.filter(and_(Sessions.userID == userID, Sessions.role == role, Sessions.expiration>=datetime.datetime.utcnow())).first()
-        print("QUERY:::::::")
-        print(query)
+        if query is None:
+            return False
+        else:
+            return True
+
+    def validateSessionIDRole(id, role):
+        query = Sessions.query.filter(and_(Sessions.userID == id, Sessions.role == role, Sessions.expiration>=datetime.datetime.utcnow())).first()
         if query is None:
             return False
         else:
@@ -450,7 +454,6 @@ class Sessions(db.Model):
 
     def createSession(userId, role):
         newSession = Sessions(userId, role)
-        print('Create Session:{0}\t{1}'.format(userId, role), file=sys.stderr)
         db.session.add(newSession)
         db.session.commit()
         db.session.refresh(newSession)

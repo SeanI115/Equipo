@@ -23,53 +23,60 @@
 </head>
 
 <body>
-        <header>
-                <img class="headerImg" src="images/whiteCougarHead.png" width=15%>
-        </header>
+  <header>
+    <nav>
+      <div class='nav-wrapper'>
+        <img class="cougLogo brand-logo" src="images/whiteCougarHead.png">
+        <ul id='nav-mobile' class='left'>
+          <li class="active"><a href="ProfCourseCreate.html">Create Course</a></li>
+          <li><a href="ProfTAPicker.html">Manage TAs</a></li>
+          <li><a href="TAMyInfo.html">My Info</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
         <section>
-        	<!-- <form>
-        		
-                
-        		Class Description: <br />
-        		<textarea rows = "5" cols = "50" name= "class_description">
-        		</textarea>
-       			<br>
-        		<br>
-        		Class Day: <br >
-        		<input type="radio" name="course_day" value="Monday"> Monday<br>
-        		<input type="radio" name="course_day" value="Tuesday"> Tuesday <br>
-        		<input type="radio" name="course_day" value="Wednesday"> Wednesday <br>
-        		<input type="radio" name="course_day" value="Thursday"> Thursday <br>
-        		<input type="radio" name="course_day" value="Friday"> Friday <br>
-        		<br>
-        		Class Start Time: <input type = "time" name ="class_startTime" />
-        		<br>
-        		<br>
-        		Class End Time: <input type = "time" name ="class_endTime" />
-        		<br>
-        		<br>
-        		<button type ="submit" value="Submit">Submit</button>
-        		<button type="reset" value="Reset">Reset</button>
-
-        	</form> -->
             <div class="row">
                 <form class="col s12">
+                    <div id="repeatMessage" class="row">
+                      <p class="col s8 offset-s2">Class Submitted. To add more sections, simply change information as necessary and resubmit.</p>
+                    </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" id="class_name">
-                            <label for="class_name">Class Name:</label>
+                        <div class="input-field col s3">
+                            <input type="text" id="classPrefix">
+                            <label for="class_name">Class Prefix: (CPTS)</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input type="text" id="classNum">
+                            <label for="class_name">Class Number: (101)</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="class_description" class="materialize-textarea" length="200"></textarea>
-                            <label for="class_description">Provide some info about your class!</label>
-                        </div>
+                      <div class="input-field col s3">
+                        <select single>
+                            <option value=" " disabled selected>Semester</option>
+                            <option value="Spring18">Spring 2018</option>
+                            <option value="Summer18">Summer 2018</option>
+                            <option value="Fall18">Fall 201818</option>
+                            <option value="Spring19">Spring 2019</option>
+                            <option value="Summer19">Summer 2019</option>
+                            <option value="Fall19">Fall 2019</option>
+                        </select>
+                        <label>Semester:</label>
+                      </div>
+                      <div class="input-field col s3">
+                          <input type="text" id="section">
+                          <label for="section">Section: (A)</label>
+                      </div>
+                      <div class="input-field col s3">
+                          <input type="text" id="numTAsNeeded">
+                          <label for="numTAsNeeded">Number of TAs Needed:</label>
+                      </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s3">
                             <select multiple>
-                                <option value=" " disabled selected>Choose Class Days</option>
+                                <option value=" " disabled selected>Meeting Days</option>
                                 <option value="Monday">Monday</option>
                                 <option value="Tuesday">Tuesday</option>
                                 <option value="Wednesday">Wednesday</option>
@@ -78,28 +85,28 @@
                             </select>
                             <label>Class Days: </label>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
+                        <div class="input-field col s3">
                             <input type="text" class="timepicker" id="class_startTime">
                             <label for="class_startTime">Class Start Time:</label>
                         </div>
-                        <div class="input-field col s6">
+                        <div class="input-field col s3">
                             <input type="text" class="timepicker" id="class_endTime">
                             <label for="class_endTime">Class End Time:</label>
                         </div>
+                    </div>
+                    <div class="row">
 
                     </div>
-                <button class="btn waves-effect waves-red red" type="submit" name="action">Submit<i class="material-icons right">send</i>
+                <button id="submitButton" class="btn waves-effect waves-red" type="submit" name="action">Submit<i class="material-icons right">send</i>
                 </button>
                 </form>
             </div>
 
 
         </section>
-            
 
-        
+
+
 
 </body>
 

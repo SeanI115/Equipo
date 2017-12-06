@@ -27,3 +27,18 @@ body{
 	color: #000;
 }
 
+nav {
+	background-color: var(--wsuCrimson) !important;
+}
+
+ul {
+	padding-left: 70px !important;
+}
+
+.cougLogo {
+	height:64px;
+}
+
+#submitButton{
+	background-color: var(--wsuCrimson) !important;
+}

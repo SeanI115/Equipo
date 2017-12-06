@@ -8,30 +8,6 @@
 	outline: none;
 }
 
-header{
-	display: block;
-	width: 100%;
-	text-align: left;
-	position: relative;
-	background-color: var(--wsuCrimson);
-	font-family: Arial;
-}
-
-body{
-	margin: 0;
-	width: 100%;
-	height: 100%;
-	position: relative;
-	font-family: Arial;
-	background-color: var(--wsuGrey);
-	color: #000;
-}
-
-p{
-	margin-bottom: 5px;
-	text-align: left;
-}
-
 h1{
 	margin-bottom: 20px;
 
@@ -44,43 +20,14 @@ input{
 	width: 90%;
 }
 
-.headerImg{
-    display: block;
-    height: 40px;
+nav {
+	background-color: var(--wsuCrimson) !important;
 }
 
-.button{
-    text-decoration: none;
-	font-size: 100%;
-	text-align: center;
-	display: block;
-	border-radius: 5px;
-    border-style:solid;
-    display: inline-block;
-    background-color: var(--wsuLightGrey);
-    border-color: var(--wsuLightGrey);
-    margin-top: 15px;
-    padding: 0px 5px;
+ul {
+	padding-left: 70px !important;
 }
 
-.button:hover {
-    background-color: var(--wsuGrey);
-    border-color: var(--wsuGrey);
-}
-
-
-.ProfOptions{
-    position: relative;
-    display: inline-block;
-    -webkit-transform: translate(-50%,-60%);
-    transform: translate(-50%,-60%);
-    margin-left: 50%;
-    margin-top: 25%;
-    text-align: center;
-    font-size:40px;
-    background-color: white;
-    border-color: black;
-    border-radius: 20px;
-    padding: 30px 50px;
-    box-shadow: 5px 5px 10px black;
+.cougLogo {
+	height:64px;
 }

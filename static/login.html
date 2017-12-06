@@ -24,11 +24,14 @@
 
 </head>
 <body>
-        <header>
-            <!--TODO: Should be just school logo on login page-->
-            <img class="headerImg" src="images/whiteCougarHead.png">
-        </header>
-        <div class="card ">
+  <header>
+    <nav>
+      <div class='nav-wrapper'>
+        <img class="cougLogo brand-logo" src="images/whiteCougarHead.png">
+      </div>
+    </nav>
+  </header>
+        <div class="card s8 offset-s2">
         	<div class="card-tabs">
         		<ul class="tabs red darken-4 tabs-fixed-width">
         			<li class="tab"><a class="white-text" href="#login">Login</a></li>
@@ -36,20 +39,20 @@
         		</ul>
         	</div>
         	<div class="card-content">
-        		<div id="login">
-        			<form id="loginForm" class="col s12" action="" method="POST">
+        		<div id="login" class="center-align">
+        			<form id="loginForm" class="col s12 center-align" action="" method="POST">
         				<div class="form-container centerForm">
                   <div class="row" id="incorrect">
                     <h2 id="errorMessage">Email or Password are incorrect</h2>
                   </div>
-        					<div class="row">
-        						<div class="input-field col s6">
+        					<div class="row center-align">
+        						<div class="input-field col s6 offset-s3">
         							<input placeholder="Email" name="email" id="email" type="text" class="emailInput">
 
         						</div>
         					</div>
-        					<div class="row">
-          					<div class="input-field col s6">
+        					<div class="row center-align">
+          					<div class="input-field col s6 offset-s3">
           						<input placeholder="Password" name="password" id="password" type="password" class="passwordInput">
           					</div>
           				</div>
@@ -65,7 +68,7 @@
         		<div id="register">
         			<form class="col s12">
         			<div class="form-container">
-        				<h3 class="red-text">Sign Up!</h3>
+        				<h3 class="red-text">Sign Up:</h3>
         				<div class="row">
         					<p>
         						<input type="checkbox" id="ta" onclick="showThis(this)">
