@@ -110,7 +110,7 @@ def getAllSessions():
     return Sessions.getAll()
 
 def main():
-    #db.create_all() # creates the tables you've provided
+    db.create_all() # creates the tables you've provided
     app.run()       # runs the Flask application
 
 if __name__ == '__main__':

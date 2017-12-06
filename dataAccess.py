@@ -193,7 +193,6 @@ class ClassesForApp(db.Model):
     prefix = db.Column(db.String(5), nullable=False)
     courseNumber = db.Column(db.Integer, nullable=False)
     semester = db.Column(db.String, nullable=False)
-    year = db.Column(db.String, nullable=False)
     numTAsNeeded = db.Column(db.Integer, nullable=False)
     numTAsAdded = db.Column(db.Integer, nullable=False, default=0)
     TAsAddedList = db.Column(db.String, nullable=False, default='')
@@ -207,7 +206,6 @@ class ClassesForApp(db.Model):
         self.prefix=json['prefix']
         self.courseNumber=json['courseNumber']
         self.semester = json['semester']
-        self.year = json['year']
         self.numTAsNeeded=json['numTAsNeeded']
         self.numTAsAdded=json['numTAsAdded']
         self.TAsAddedList=''
@@ -222,7 +220,6 @@ class ClassesForApp(db.Model):
             'prefix':self.prefix,
             'courseNumber':self.courseNumber,
             'semester':self.semester,
-            'year':self.year,
             'numTAsNeeded':self.numTAsNeeded,
             'numTAsAdded':self.numTAsAdded,
             'labSection':self.labSection,
@@ -250,7 +247,7 @@ class ClassesForApp(db.Model):
     def getClassesByProfId(profid, role):
         validated = Sessions.validateSessionIDRole(profid,role)
         if validated:
-            classes = ClassesForApp.query.filter_by(id = profid).all()
+            classes = ClassesForApp.query.filter_by(professorID = profid).all()
             result = []
             for row in classes:
                 result.append(row.row_to_obj_with_prof())

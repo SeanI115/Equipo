@@ -7,28 +7,6 @@ var Tracker = (function() {
         var id;
         var role;
 
-        var makeGetRequest = function(url, onSuccess, onFailure) {
-            $.ajax({
-                type: 'GET',
-                url: apiUrl + url,
-                dataType: "json",
-                success: onSuccess,
-                error: onFailure
-            });
-        };
-
-        var makePostRequest = function(url, data, onSuccess, onFailure) {
-            $.ajax({
-                type: 'POST',
-                url: apiUrl + url,
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                dataType: "json",
-                success: onSuccess,
-                error: onFailure
-            });
-        };
-
         var getParameterByName = function(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
@@ -43,6 +21,7 @@ var Tracker = (function() {
             id = getParameterByName('id')
             role = getParameterByName('role')
             //displayProfClasses();
+            $('.dayTime').hide();
         };
 
 
@@ -53,10 +32,32 @@ var Tracker = (function() {
         };
 
     })();
-
+var apiUrl = 'http://127.0.0.1:5000/api/';
 var MY_INFO_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/TAMyInfo.html"
 var MY_CLASSES_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfSplash.html"
 var MANAGE_TAS_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfTAPicker.html"
+
+var makeGetRequest = function(url, onSuccess, onFailure) {
+    $.ajax({
+        type: 'GET',
+        url: apiUrl + url,
+        dataType: "json",
+        success: onSuccess,
+        error: onFailure
+    });
+};
+
+var makePostRequest = function(url, data, onSuccess, onFailure) {
+    $.ajax({
+        type: 'POST',
+        url: apiUrl + url,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: "json",
+        success: onSuccess,
+        error: onFailure
+    });
+};
 
 function myClassesRedirect(){
   var url= window.location.href;
@@ -92,7 +93,50 @@ function myInfoRedirect(){
   window.location.href = newUrl;
 }
 
+function attemptCourseCreate(){
+  var data = {}
 
+  data.userID=getParameterByNamePub('id')
+  data.role=getParameterByNamePub('role')
+  data.professorID=getParameterByNamePub('id')
+  data.prefix=document.getElementById('classPrefix').value;
+  data.courseNumber=document.getElementById('classNum').value;
+  data.semester=document.getElementById('semester').value;
+  data.section=document.getElementById('section').value;
+  data.numTAsNeeded=document.getElementById('numTAsNeeded').value;
+  data.numTAsAdded=0;
+  data.labSection=document.getElementById('section').value;
+  data.dayTime = '';
+  var b = document.getElementById('dayTime').checked
+  if(b){
+    data.dayTime=document.getElementById('dayTimeIn').value;
+  }
+
+  var onSuccess = function(e){
+    alert('Yay')
+  }
+
+  var onError = function(e){
+    alert('awww')
+  }
+
+  makePostRequest('createClass', data, onSuccess, onError)
+}
+
+var getParameterByNamePub = function(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function showStuff(box){
+  if(box.checked) $('.dayTime').show();
+  else $('.dayTime').hide();
+}
 
 
 var apiUrl = 'http://127.0.0.1:5000/api/';

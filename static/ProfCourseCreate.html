@@ -8,7 +8,6 @@
         <title> Course Creation Page </title>
         <script src="scripts/jquery.min.js"></script>
         <script type= "text/javascript" src="scripts/ProfCourseCreate.js"></script>
-        <script type="text/javascript" src="scripts/Login.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
@@ -54,7 +53,7 @@
                     </div>
                     <div class="row">
                       <div class="input-field col s3">
-                        <select single>
+                        <select single id="semester">
                             <option value=" " disabled selected>Semester</option>
                             <option value="Spring18">Spring 2018</option>
                             <option value="Summer18">Summer 2018</option>
@@ -75,30 +74,19 @@
                       </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s3">
-                            <select multiple>
-                                <option value=" " disabled selected>Meeting Days</option>
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                            </select>
-                            <label>Class Days: </label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input type="text" class="timepicker" id="class_startTime">
+                      <input type="checkbox" id="dayTime" onclick="showStuff(this)">
+          						<label for="dayTime">Add Day of the Week/Time Info?</label>
+                    </div>
+                    <div class="dayTime row">
+                        <div class="input-field col s5">
+                            <input type="text" class="dayTime" id="dayTimeIn">
                             <label for="class_startTime">Class Start Time:</label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input type="text" class="timepicker" id="class_endTime">
-                            <label for="class_endTime">Class End Time:</label>
                         </div>
                     </div>
                     <div class="row">
 
                     </div>
-                <button id="submitButton" class="btn waves-effect waves-red" type="submit" name="action">Submit<i class="material-icons right">send</i>
+                <button id="submitButton" class="btn waves-effect waves-red" type="button" onClick="attemptCourseCreate()">Submit<i class="material-icons right">send</i>
                 </button>
                 </form>
             </div>
