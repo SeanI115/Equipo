@@ -74,16 +74,48 @@ var Tracker = (function() {
         // any private methods returned in the hash are accessible via Smile.key_name, e.g. Smile.start()
         return {
             start: start
-            getParameterByName: getParameterByName
         };
 
     })();
 
 var MY_INFO_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/TAMyInfo.html"
-var CREATE_COURSE_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/TAMyInfo.html"
-var MANAGE_TAS_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/TAMyInfo.html"
+var CREATE_COURSE_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfCourseCreate.html"
+var MANAGE_TAS_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfTAPicker.html"
 
-function courseCreateRedirect():
+function courseCreateRedirect(){
+  var url= window.location.href;
+  var splitIndex = url.indexOf("?");
+  var info = '';
+  if(splitIndex !=-1){
+    info = url.slice(splitIndex);
+  }
+  var newUrl = CREATE_COURSE_REDIRECT_URL + info;
+  window.location.href = newUrl;
+
+}
+
+function TAPickerRedirect(){
+    var url= window.location.href;
+    var splitIndex = url.indexOf("?");
+    var info = '';
+    if(splitIndex !=-1){
+      info = url.slice(splitIndex);
+    }
+    var newUrl = MANAGE_TAS_REDIRECT_URL + info;
+    window.location.href = newUrl;
+}
+
+function myInfoRedirect(){
+  var url= window.location.href;
+  var splitIndex = url.indexOf("?");
+  var info = '';
+  if(splitIndex !=-1){
+    info = url.slice(splitIndex);
+  }
+  var newUrl = MY_INFO_REDIRECT_URL + info;
+  window.location.href = newUrl;
+}
+
 
 
 
