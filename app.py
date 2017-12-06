@@ -32,8 +32,12 @@ def getAllProfs():
     return Professors.getAll()
 
 @app.route(base_url+'ProfByID/<string:id>',methods=["GET"])
-def ProfByID():
+def ProfByID(id):
     return Professors.getProfByID(id)
+
+@app.route(base_url+'editProf',methods=["POST"])
+def editProf():
+    return Professors.editProf(request)
 
 @app.route(base_url+'loginProf',methods=['POST'])
 def loginProf():

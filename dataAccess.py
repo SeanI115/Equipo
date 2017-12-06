@@ -39,13 +39,12 @@ class Professors(db.Model):
         result = []
         for row in query:
             result.append(row.row_to_obj())
-        print(result, file=sys.stderr)
         return jsonify({"status": 1, "professors": result}), 200
 
     def getProfByID(id):
         validated = Sessions.validateSessionIDRole(id, 'prof')
         if(validated):
-            prof = Professors.query.filter_by(id=id)
+            prof = Professors.query.filter_by(id=id).first()
             return jsonify({'status':1,'prof':prof.row_to_obj()}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
@@ -55,19 +54,25 @@ class Professors(db.Model):
         email = json['email'].lower()
         password = json['password']
         prof = Professors.query.filter_by(email=email).first()
-        print(prof, file=sys.stderr)
         if prof is None:
-            print('user not found', file=sys.stderr)
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
         hashedInput = str(bcrypt.hashpw(password.encode('utf8'), prof.salt))
-        print(hashedInput)
         if(prof.loginHash == hashedInput):
             Sessions.createSession(prof.id, "prof")
             #return jsonify({"status":1,"professor":prof.row_to_obj()}), 200
             return jsonify({"status":1,"loggedIn":prof.row_to_obj()}), 200
         else:
-            print("I AM HERE")
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
+
+    def editProf(request):
+        json=request.get_json()
+        toEdit=Professors.query.filter_by(id=json['id']).first()
+        toEdit.firstName = json['firstName']
+        toEdit.lastName = json['lastName']
+        db.session.add(toEdit)
+        db.session.commit()
+        db.session.refresh(toEdit)
+        return jsonify({"status":1,"edited":toEdit.row_to_obj()}), 200
 
     def deleteProf(request):
         json = request.get_json()
@@ -117,13 +122,9 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         email = json['email'].lower()
         password = json['password']
         ta = TAs.query.filter_by(email=email).first()
-        print(ta, file=sys.stderr)
         if ta is None:
-            print('user not found', file=sys.stderr)
             return jsonify({"status":-1,"errors":"Email or Password Incorrect"}), 404
         hashedInput = str(bcrypt.hashpw(password.encode('utf8'), ta.salt))
-        print(ta.loginHash, file=sys.stderr)
-        print(hashedInput, file=sys.stderr)
         if(ta.loginHash == hashedInput):
             Sessions.createSession(ta.id, "ta")
             return jsonify({"status":1,"loggedIn":ta.row_to_obj()}), 200
@@ -162,7 +163,6 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         result = []
         for row in query:
             result.append(row.row_to_obj())
-        print(result, file=sys.stderr)
         return jsonify({"status": 1, "tas": result}), 200
 
     def getByID(id):
@@ -224,7 +224,6 @@ class ClassesForApp(db.Model):
         result = []
         for row in query:
             result.append(row.row_to_obj())
-        print(result, file=sys.stderr)
         return jsonify({"status": 1, "classes": result}), 200
 
     def getClassPrefixes(request):
@@ -246,7 +245,6 @@ class ClassesForApp(db.Model):
             result = []
             for row in classes:
                 result.append(row.row_to_obj_with_prof())
-            print(result, file=sys.stderr)
             return jsonify({"status": 1, "classes": result}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
@@ -258,7 +256,6 @@ class ClassesForApp(db.Model):
             classes = []
             for row in query:
                 classes.append(row.row_to_obj_with_prof())
-            print(classes, file=sys.stderr)
             return jsonify({"status": 1, "classes": classes}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
@@ -319,7 +316,6 @@ class Applications(db.Model):
         classForApp = ClassesForApp.query.filter_by(id=self.classID).first()
         prof = Professors.query.filter_by(id=classForApp.professorID).first()
         ta = TAs.query.filter_by(id=self.studentID).first()
-        print(ta.email)
         row = {
             'id':self.id,
             'studentID':self.studentID,
@@ -353,7 +349,6 @@ class Applications(db.Model):
         result = []
         for row in query:
             result.append(row.row_to_obj())
-        print(result, file=sys.stderr)
         return jsonify({"status": 1, "applications": result}), 200
 
     def getAppsByTAID(request):
@@ -404,7 +399,7 @@ class Sessions(db.Model):
         if not now:
             now = datetime.datetime.utcnow()
         self.expiration = now+datetime.timedelta(hours=SESSION_EXPIRATION_HOURS)
-        print(self.expiration)
+
 
     def row_to_obj(self):
         row = {
@@ -413,7 +408,6 @@ class Sessions(db.Model):
             'role':self.role,
             'expiration':self.expiration
         }
-        print(row)
         return row
 
     def getAll():#TESTING ONLY
@@ -421,7 +415,6 @@ class Sessions(db.Model):
         result = []
         for row in query:
             result.append(row.row_to_obj())
-        print(result, file=sys.stderr)
         return jsonify({"status": 1, "sessions": result}), 200
 
     def validateSession(request):

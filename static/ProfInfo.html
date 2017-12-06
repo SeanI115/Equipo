@@ -4,10 +4,10 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="images/titleIcon.ico">
                 <link rel="stylesheet" type="text/css" href="styles/Info.css">
-                <title> TA Info </title>
+                <title> My Info </title>
                 <script src="scripts/jquery.min.js"></script>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <script type="text/javascript" src="scripts/TAMyInfo.js"></script>
+                <script type="text/javascript" src="scripts/ProfInfo.js"></script>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
                 <script type="text/javascript">
@@ -27,9 +27,9 @@
                 <img class="cougLogo brand-logo" src="images/whiteCougarHead.png">
                 <ul id='nav-mobile' class='left'>
                   <li><a onClick="myClassesRedirect()">My Classes</a></li>
-                  <li class="active"><a>Create Course</a></li>
+                  <li><a onClick="createCourseRedirect()">Create Course</a></li>
                   <li><a onClick="TAPickerRedirect()">Manage TAs</a></li>
-                  <li><a onClick="myInfoRedirect()">My Info</a></li>
+                  <li class="active"><a>My Info</a></li>
                 </ul>
               </div>
             </nav>
@@ -39,21 +39,21 @@
                         <form class="col s12">
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <p contenteditable="true" id="firstName"></p>
+                                    <input type="text" id="first_name">
                                 </div>
                                 <div class="input-field col s6">
-                                    <p contenteditable="true" id="lastName"></p>
+                                    <input type="text" id="last_name" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <p contenteditable="false" id="email"></p>
+                                    <input readonly type="text" id="email">
                                 </div>
                                 <div class="input-field col s6">
-                                    <p contenteditable="false" id="ID"></p>
+                                    <input readonly type="text" id="ID" >
                                 </div>
                             </div>
-                            <a class="waves-effect waves-light btn red" id="editButton" >Edit</a>
+                            <a class="waves-effect waves-light btn red" id="editButton" type="button" onClick="editInfo()">Edit</a>
 
                         </form>
                     </div>

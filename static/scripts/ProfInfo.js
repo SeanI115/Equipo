@@ -7,6 +7,20 @@ var Tracker = (function() {
         var id;
         var role;
 
+        var populateProf = function(){
+          url = 'ProfByID/'
+          id = getParameterByName('id')
+          var onSuccess = function(data){
+            $('#first_name').val(data.prof.firstName)
+            $('#last_name').val(data.prof.lastName)
+            $('#email').val(data.prof.email)
+            $('#ID').val(data.prof.id)
+          }
+          var onError = function(data){
+          }
+          makeGetRequest(url+id, onSuccess, onError)
+        }
+
         var getParameterByName = function(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
@@ -20,8 +34,7 @@ var Tracker = (function() {
         var start = function() {
             id = getParameterByName('id')
             role = getParameterByName('role')
-            //displayProfClasses();
-            $('.dayTime').hide();
+            populateProf()
         };
 
 
@@ -33,7 +46,7 @@ var Tracker = (function() {
 
     })();
 var apiUrl = 'http://127.0.0.1:5000/api/';
-var MY_INFO_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfInfo.html"
+var CREATE_COURSE_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfCourseCreate.html"
 var MY_CLASSES_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfSplash.html"
 var MANAGE_TAS_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/ProfTAPicker.html"
 
@@ -82,35 +95,23 @@ function TAPickerRedirect(){
     window.location.href = newUrl;
 }
 
-function myInfoRedirect(){
+function createCourseRedirect(){
   var url= window.location.href;
   var splitIndex = url.indexOf("?");
   var info = '';
   if(splitIndex !=-1){
     info = url.slice(splitIndex);
   }
-  var newUrl = MY_INFO_REDIRECT_URL + info;
+  var newUrl = CREATE_COURSE_REDIRECT_URL + info;
   window.location.href = newUrl;
 }
 
-function attemptCourseCreate(){
+function editInfo(){
   var data = {}
 
-  data.userID=getParameterByNamePub('id')
-  data.role=getParameterByNamePub('role')
-  data.professorID=getParameterByNamePub('id')
-  data.prefix=document.getElementById('classPrefix').value;
-  data.courseNumber=document.getElementById('classNum').value;
-  data.semester=document.getElementById('semester').value;
-  data.section=document.getElementById('section').value;
-  data.numTAsNeeded=document.getElementById('numTAsNeeded').value;
-  data.numTAsAdded=0;
-  data.labSection=document.getElementById('section').value;
-  data.dayTime = '';
-  var b = document.getElementById('dayTime').checked
-  if(b){
-    data.dayTime=document.getElementById('dayTimeIn').value;
-  }
+  data.firstName = document.getElementById('first_name').value;
+  data.lastName = document.getElementById('last_name').value;
+  data.id= document.getElementById('ID').value;
 
   var onSuccess = function(e){
     alert('Yay')
@@ -120,7 +121,7 @@ function attemptCourseCreate(){
     alert('awww')
   }
 
-  makePostRequest('createClass', data, onSuccess, onError)
+  makePostRequest('editProf', data, onSuccess, onError)
 }
 
 var getParameterByNamePub = function(name, url) {

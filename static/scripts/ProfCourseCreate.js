@@ -20,8 +20,8 @@ var Tracker = (function() {
         var start = function() {
             id = getParameterByName('id')
             role = getParameterByName('role')
-            //displayProfClasses();
             $('.dayTime').hide();
+            $('#repeatMessage').hide();
         };
 
 
@@ -113,7 +113,7 @@ function attemptCourseCreate(){
   }
 
   var onSuccess = function(e){
-    alert('Yay')
+    $("#repeatMessage").show()
   }
 
   var onError = function(e){
