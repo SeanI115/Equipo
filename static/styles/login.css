@@ -163,6 +163,10 @@ h5
     font-weight: 400;
 }
 
+form{
+    text-align: center;
+}
+
 .container
 {
     margin-top: 80px;
