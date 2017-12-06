@@ -192,7 +192,7 @@ class ClassesForApp(db.Model):
         json = request.get_json()
         self.id=str(uuid.uuid4())
         self.professorID=json['professorID']
-        self.prefix=json['prefix']
+        self.prefix=json['prefix'].upper()
         self.courseNumber=json['courseNumber']
         self.semester = json['semester']
         self.numTAsNeeded=json['numTAsNeeded']
@@ -265,6 +265,10 @@ class ClassesForApp(db.Model):
         if validated:
             json = request.get_json()
             acceptedApp = Applications.query.filter_by(id=json['id']).first()
+            acceptedApp.accepted = True
+            db.session.add(acceptedApp)
+            db.session.commit()
+            db.session.refresh(acceptedApp)
             classToAddID = acceptedApp.classID
             classToAdd = ClassesForApp.query.filter_by(id=classToAddID).first()
             if classToAdd:
@@ -303,6 +307,7 @@ class Applications(db.Model):
     classID = db.Column(db.String, nullable=False)
     gradeInClass = db.Column(db.String, nullable=False)
     story = db.Column(db.String, nullable=True)
+    accepted = db.Column(db.Boolean, nullable=False)
 
     def __init__(self, request):
         json = request.get_json()
@@ -310,7 +315,8 @@ class Applications(db.Model):
         self.studentID = json['studentID']
         self.classID = json['classID']
         self.gradeInClass = json['gradeInClass']
-        self.story = request.values.get('story', None)
+        self.story = json['story']
+        self.accepted = False
 
     def row_to_obj(self):
         classForApp = ClassesForApp.query.filter_by(id=self.classID).first()
@@ -322,6 +328,7 @@ class Applications(db.Model):
             'classID':self.classID,
             'gradeInClass':self.gradeInClass,
             'story':self.story,
+            'accepted':self.accepted,
             'prefix':classForApp.prefix,
             'courseNumber':classForApp.courseNumber,
             'semester':classForApp.semester,

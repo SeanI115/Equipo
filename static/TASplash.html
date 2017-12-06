@@ -1,12 +1,14 @@
 <html>
-        
+
         <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="images/titleIcon.ico">
                 <title> TA Home Page </title>
                 <link rel="stylesheet" type="text/css" href="styles/TASplash.css">
                 <script src="scripts/jquery.min.js"></script>
-                <script type="text/javascript" src="scripts/Login.js"></script>
+                <script type="text/javascript" src="scripts/TASplash.js"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
                 <script type="text/javascript">
                     // This is a jQuery convention to say that once all the files
                     // load, the function Smile.start() should run.
@@ -16,31 +18,29 @@
                     });
                 </script>
         </head>
-        
+
         <body>
-                <header>
-                        <img class="headerImg" src="images/whiteCougarHead.png">
-                </header>
+          <header>
+            <nav>
+              <div class='nav-wrapper'>
+                <img class="cougLogo brand-logo" src="images/whiteCougarHead.png">
+                <ul id='nav-mobile' class='left'>
+                  <li class="active"><a>My Applications</a></li>
+                  <li><a onClick="applicationRedirect()">Apply For Course</a></li>
+                  <li><a onClick="myInfoRedirect()">My Info</a></li>
+                </ul>
+              </div>
+            </nav>
+          </header>
                 <section class="mainbody splash">
                     <div class="TAoptions">
-                        <div class="optionButtons">
-                             <div class="infobutton">
-                                <a class="editinfoButton button" onclick="window.location.href='TAMyInfo.html"'>Edit Info</a>
-                            </div>
-                            <div class="applybutton">
-                                <a class="applyclassButton button" onclick="window.location.href='TAApplication.html'">Apply to TA</a>
-                             </div>
-                            <div class="viewApps">
-                                <a class="viewAppsButton button">View Applications</a>
-                            </div>
 
-                        </div>
                     </div>
                 </section>
-                    
-        
-                
-        
+
+
+
+
         </body>
-        
+
         </html>

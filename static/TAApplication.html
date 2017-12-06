@@ -11,13 +11,22 @@
       	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 		<link rel="stylesheet" type="text/css" href="styles/TAApplication.css">
   		<script type="text/javascript" src="scripts/jquery.min.js"></script>
-  	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>	
+  	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 		<script type="text/javascript" src="scripts/TAApplication.js"></script>
 	</head>
 	<body>
-			<header>
-				<img class="headerImg" src="images/whiteCougarHead.png">
-			</header>
+		<header>
+			<nav>
+				<div class='nav-wrapper'>
+					<img class="cougLogo brand-logo" src="images/whiteCougarHead.png">
+					<ul id='nav-mobile' class='left'>
+						<li><a onCLick="myAppsRedirect()">My Applications</a></li>
+						<li class="active"><a>Apply For Course</a></li>
+						<li><a onClick="myInfoRedirect()">My Info</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
 			<div class="card">
 				<div class="card-content">
 					<form class=col s12>
@@ -74,7 +83,7 @@
 					  		</div>
 				  	</div>
 				  </div>
-				    
+
 				    <div class="row">
 				      <div class="input-field col s6">
 				      	<i class="material-icons prefix">assignment</i>
@@ -82,7 +91,7 @@
 				        <label for="gpa">GPA</label>
 				      </div>
 				    </div>
-				    
+
 				    <div class="row">
 				      <div class="input-field col s6">
 				      	<i class="material-icons prefix">email</i>
