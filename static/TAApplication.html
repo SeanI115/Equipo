@@ -13,6 +13,14 @@
   		<script type="text/javascript" src="scripts/jquery.min.js"></script>
   	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 		<script type="text/javascript" src="scripts/TAApplication.js"></script>
+		<script type="text/javascript">
+				// This is a jQuery convention to say that once all the files
+				// load, the function Smile.start() should run.
+				// This function is defined in the smiles.js
+				$(function() {
+						Tracker.start();
+				});
+		</script>
 	</head>
 	<body>
 		<header>
@@ -24,6 +32,9 @@
 						<li class="active"><a>Apply For Course</a></li>
 						<li><a onClick="myInfoRedirect()">My Info</a></li>
 					</ul>
+					<ul id='nav-mobile' class='right'>
+						<li><a onCLick="logoutRedirect()">Log Out</a></li>
+					</ul>
 				</div>
 			</nav>
 		</header>
@@ -31,79 +42,38 @@
 				<div class="card-content">
 					<form class=col s12>
 						<div class="form-container">
-							<h3 class="red-text">Application</h3>
-							<div class="row">
-								<div class="input-field col s6">
-									<select>
-										<option value="" disabled selected>Choose Course</option>
-										<option value="1">CS 121</option>
-										<option value="2">CS 122</option>
-									</select>
-									<label>Course Select</label>
+							<div class="row" id="prefixDiv">
+								<div class="input-field col s4">
+									<div id="prefixSelector" class="collection with-header active">
+                      <a class="collection-header">Choose Course Prefix</a>
+                  </div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row" id="courseSelectorDiv">
 								<div class="input-field col s6">
-									<select>
-										<option value="" disabled selected>Choose Time</option>
-										<option value="time1">9:00 am</option>
-										<option value="time2">10:00 am</option>
-									</select>
-									<label>Time Select</label>
+									<div id="courseSelector" class="collection with-header active">
+                      <a class="collection-header">Choose Course</a>
+                  </div>
 								</div>
 							</div>
-							<center>
-								<button class="btn waves-effect waves-light red darken-4" type="submit">Submit</button>
-							</center>
+							<div id="applicationDiv">
+								<div class="row">
+									<div class="input-field col s4 offset-s4">
+										<input placeholder="Grade In Class:" id="gradeInClass" type="text">
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s8 offset-s2">
+										<input id="story" type="text">
+										<label for="story">Why do you want to TA for this class?</label>
+									</div>
+								</div>
+								<center>
+									<button class="btn waves-effect waves-light red darken-4" type="button" onclick="submitApp(this)">Submit</button>
+								</center>
+							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<!-- <section class="mainbody application">
-				<div class="row">
-				  <form class="col s12">
-				  	<div class="input-field col s6">
-				  		<div class="row">
-					  		<select id="Course" title="" name="Course">
-					  			<option value="" disabled selected>Choose Course</option>
-					  			<option value="1">CS 121</option>
-					  			<option value="2">CS 122</option>
-					  		</select>
-					  		<label>Course Select</label>
-					  		</div>
-				  	</div>
-				  	<div class="input-field col s6" id='Course time'>
-				  		<div class="row">
-				  			<select>
-					  			<option value="" disabled selected>Choose Course Time</option>
-					  			<option value="3">9 am</option>
-					  			<option value="4">10 am</option>
-					  		</select>
-					  		<label>Course Time</label>
-					  		</div>
-				  	</div>
-				  </div>
-
-				    <div class="row">
-				      <div class="input-field col s6">
-				      	<i class="material-icons prefix">assignment</i>
-				        <input id="gpa" type="number" class="validate">
-				        <label for="gpa">GPA</label>
-				      </div>
-				    </div>
-
-				    <div class="row">
-				      <div class="input-field col s6">
-				      	<i class="material-icons prefix">email</i>
-				        <input id="email" type="email" class="validate">
-				        <label for="email">Email</label>
-				      </div>
-				    </div>
-				    <div class="row">
-				    	<button class="btn waves-effect waves-light red" type="submit" name="action">Submit<i class="material-icons right">send</i>
-				    	</button>
-				    </div>
-				  </form>
-				</div>
-			</section> -->
 		</body>

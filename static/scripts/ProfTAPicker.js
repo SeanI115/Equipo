@@ -48,7 +48,7 @@ var Tracker = (function() {
   var makePostRequest = function(url, data, onSuccess, onFailure) {
       $.ajax({
           type: 'POST',
-          url: apiUrl + url,
+          url: 'http://127.0.0.1:5000/api/' + url,
           data: JSON.stringify(data),
           contentType: "application/json",
           dataType: "json",
@@ -122,7 +122,7 @@ var Tracker = (function() {
 
       };
 
-    makeGetRequest('AppsForClass/'+classID+'/',onSuccess,onFailure);
+    makeGetRequest('AppsForClass/'+classID,onSuccess,onFailure);
 
   };
 
@@ -186,7 +186,10 @@ var Tracker = (function() {
       var newUrl = CREATE_COURSE_REDIRECT_URL + info;
       window.location.href = newUrl;
   }
-
+  var LOG_OUT_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/login.html"
+  function logoutRedirect(){
+    window.location.href = LOG_OUT_REDIRECT_URL
+  }
   function myInfoRedirect(){
     var url= window.location.href;
     var splitIndex = url.indexOf("?");

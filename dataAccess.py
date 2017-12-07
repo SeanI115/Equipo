@@ -166,15 +166,28 @@ class TAs(db.Model):#taIdentifier is PotentialTAs.id, classForApp id ClassesForA
         return jsonify({"status": 1, "tas": result}), 200
 
     def getByID(id):
-        role = 'ta'
-        userId = id
-        requestedId = id
-        validated = Sessions.validateSessionIDRole(id, role)
+        requestedID = id
+        validated = Sessions.validateSessionIDRole(id, 'ta')
         toReturn = TAs.query.filter_by(id = requestedID).first()
         if toReturn is None:
             return jsonify({"status":-1,"errors":"TA not found"}), 401
         else:
             return jsonify({"status":1,"ta":toReturn.row_to_obj()}), 200
+
+    def editTA(request):
+        json=request.get_json()
+        toEdit=TAs.query.filter_by(id=json['id']).first()
+        toEdit.firstName = json['firstName']
+        toEdit.lastName = json['lastName']
+        toEdit.major = json['major']
+        toEdit.cum_gpa = json['cum_gpa']
+        toEdit.expected_grad = json['expected_grad']
+        toEdit.prev_TA = json['prev_TA']
+        toEdit.phone = json['phone']
+        db.session.add(toEdit)
+        db.session.commit()
+        db.session.refresh(toEdit)
+        return jsonify({"status":1,"edited":toEdit.row_to_obj()}), 200
 
 class ClassesForApp(db.Model):
     id = db.Column(db.String, primary_key=True, nullable=False)
@@ -255,38 +268,34 @@ class ClassesForApp(db.Model):
             query = ClassesForApp.query.filter_by(prefix=prefix)
             classes = []
             for row in query:
-                classes.append(row.row_to_obj_with_prof())
+                classes.append(row.row_to_obj())
             return jsonify({"status": 1, "classes": classes}), 200
         else:
             return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
 
     def addTAToClass(request):
-        validated = Sessions.validateSession(request)
-        if validated:
-            json = request.get_json()
-            acceptedApp = Applications.query.filter_by(id=json['id']).first()
-            acceptedApp.accepted = True
-            db.session.add(acceptedApp)
-            db.session.commit()
-            db.session.refresh(acceptedApp)
-            classToAddID = acceptedApp.classID
-            classToAdd = ClassesForApp.query.filter_by(id=classToAddID).first()
-            if classToAdd:
-                student = TAs.query.filter_by(id=acceptedApp.studentID).first()
-                if student:
-                    classToAdd.TAsAddedList += ','
-                    classToAdd.TAsAddedList += student.id
-                    classToAdd.numTAsAdded+=1
-                    db.session.add(classToAdd)
-                    db.session.commit()
-                    db.session.refresh(newThing)
-                    return jsonify({"status":1,"class":classToAdd.row_to_obj()}), 401
-                else:
-                    return jsonify({"status":-1,"errors":"student not found"}), 404
+        json = request.get_json()
+        acceptedApp = Applications.query.filter_by(id=json['id']).first()
+        acceptedApp.accepted = True
+        db.session.add(acceptedApp)
+        db.session.commit()
+        db.session.refresh(acceptedApp)
+        classToAddID = acceptedApp.classID
+        classToAdd = ClassesForApp.query.filter_by(id=classToAddID).first()
+        if classToAdd:
+            student = TAs.query.filter_by(id=acceptedApp.studentID).first()
+            if student:
+                classToAdd.TAsAddedList += ','
+                classToAdd.TAsAddedList += str(student.id)
+                classToAdd.numTAsAdded+=1
+                db.session.add(classToAdd)
+                db.session.commit()
+                db.session.refresh(classToAdd)
+                return jsonify({"status":1,"class":classToAdd.row_to_obj()}), 200
             else:
-                return jsonify({"status":-1,"errors":"class not found"}), 401
+                return jsonify({"status":-1,"errors":"student not found"}), 404
         else:
-            return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
+            return jsonify({"status":-1,"errors":"class not found"}), 404
 
     def deleteClassByID(request):
         json = request.get_json
@@ -332,7 +341,6 @@ class Applications(db.Model):
             'prefix':classForApp.prefix,
             'courseNumber':classForApp.courseNumber,
             'semester':classForApp.semester,
-            'year':classForApp.year,
             'numTAsNeeded':classForApp.numTAsNeeded,
             'numTAsAdded':classForApp.numTAsAdded,
             'labSection':classForApp.labSection,
@@ -358,22 +366,16 @@ class Applications(db.Model):
             result.append(row.row_to_obj())
         return jsonify({"status": 1, "applications": result}), 200
 
-    def getAppsByTAID(request):
-        requestedId=request.args.get('requestedId', None)
-        validated= Sessions.validateSession(request)
-        if validated:
-            query = Applications.query.filter_by(studentID=requestedId).all()
-            apps = []
-            classes = []
-            ta = TAs.query.filter_by(id=requestedID).first()
-            for row in query:
-                classes.append(row.row_to_obj())
-            return jsonify({"status": 1, "apps": apps, "classes": classes, "ta": ta}), 200
-        else:
-            return jsonify({"status":-1,"errors":"Session validation failed: You may need to re-login"}), 401
+    def getAppsByTAID(requestedID):
+        query = Applications.query.filter_by(studentID=requestedID).all()
+        apps = []
+        for row in query:
+            apps.append(row.row_to_obj())
+        return jsonify({"status": 1, "apps": apps}), 200
 
     def getAppsForClass(requestedID):
-        query = Applications.query.filter_by(classID=requestedId).all()
+        query = Applications.query.filter_by(classID=requestedID).all()
+        apps = []
         for row in query:
             apps.append(row.row_to_obj())
         return jsonify({"status": 1, "apps": apps}), 200

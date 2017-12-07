@@ -92,6 +92,10 @@ function myInfoRedirect(){
   var newUrl = MY_INFO_REDIRECT_URL + info;
   window.location.href = newUrl;
 }
+var LOG_OUT_REDIRECT_URL = "file:///Users/samuelmahan/Desktop/Fall17/CS322/TATracker/static/login.html"
+function logoutRedirect(){
+  window.location.href = LOG_OUT_REDIRECT_URL
+}
 
 function attemptCourseCreate(){
   var data = {}

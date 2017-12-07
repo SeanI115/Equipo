@@ -7,7 +7,7 @@
                 <title> My Info </title>
                 <script src="scripts/jquery.min.js"></script>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <script type="text/javascript" src="scripts/ProfInfo.js"></script>
+                <script type="text/javascript" src="scripts/TAInfo.js"></script>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
                 <script type="text/javascript">
@@ -26,14 +26,10 @@
               <div class='nav-wrapper'>
                 <img class="cougLogo brand-logo" src="images/whiteCougarHead.png">
                 <ul id='nav-mobile' class='left'>
-                  <li><a onClick="myClassesRedirect()">My Classes</a></li>
-                  <li><a onClick="createCourseRedirect()">Create Course</a></li>
-                  <li><a onClick="TAPickerRedirect()">Manage TAs</a></li>
+                  <li><a onClick="myAppsRedirect()">My Classes</a></li>
+                  <li><a onClick="applyCourseRedirect()">Create Course</a></li>
                   <li class="active"><a>My Info</a></li>
                 </ul>
-      					<ul id='nav-mobile' class='right'>
-      						<li><a onCLick="logoutRedirect()">Log Out</a></li>
-      					</ul>
               </div>
             </nav>
           </header>
@@ -54,6 +50,28 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <input readonly type="text" id="ID" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input readonly type="text" id="major">
+                                </div>
+                                <div class="input-field col s6">
+                                    <input readonly type="text" id="cum_gpa">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input readonly type="text" id="expected_grad">
+                                </div>
+                                <p>
+                      						<input type="checkbox" id="prev_Ta">
+                      						<label for="prevTa">Previous TA?</label>
+                      					</p>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input readonly type="text" id="phone">
                                 </div>
                             </div>
                             <a class="waves-effect waves-light btn red" id="editButton" type="button" onClick="editInfo()">Edit</a>

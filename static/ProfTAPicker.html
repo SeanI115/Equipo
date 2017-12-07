@@ -7,8 +7,8 @@
                 <title> Professor TA Picker </title>
                 <script src="scripts/jquery.min.js"></script>
                 <script type="text/javascript" src="scripts/ProfTAPicker.js"></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+                <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>-->
                 <script type="text/javascript">
                     $(function() {
                         Tracker.start();
@@ -27,6 +27,9 @@
                   <li class="active"><a>Manage TAs</a></li>
                   <li><a onClick="MyInfoRedirect()">My Info</a></li>
                 </ul>
+      					<ul id='nav-mobile' class='right'>
+      						<li><a onCLick="logoutRedirect()">Log Out</a></li>
+      					</ul>
               </div>
             </nav>
           </header>

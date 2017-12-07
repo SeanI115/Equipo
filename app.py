@@ -51,6 +51,10 @@ def deleteProf():
 def createTA():
     return create(TAs, request)
 
+@app.route(base_url+'editTA',methods=["POST"])
+def editTA():
+    return TAs.editTA(request)
+
 @app.route(base_url+'TAs',methods=["GET"])
 def getAllTAs():
     return TAs.getAll()
@@ -105,9 +109,9 @@ def createApplication():
 def getAllApplications():
     return Applications.getAll()
 
-@app.route(base_url+'AppsByTAID',methods=["GET"])
-def getAppsByTAID():
-    return Applications.getAppsByTAID(request)
+@app.route(base_url+'AppsByTAID/<string:id>',methods=["GET"])
+def getAppsByTAID(id):
+    return Applications.getAppsByTAID(id)
 
 @app.route(base_url+'AppsForClass/<string:requestedID>',methods=["GET"])
 def getAppsByClass(requestedID):
